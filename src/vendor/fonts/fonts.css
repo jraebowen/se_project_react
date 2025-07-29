@@ -8,6 +8,6 @@
 @font-face {
   font-family: "Cabinet Grotesk Bold";
   src: url(./CabinetGrotesk-Bold.woff) format("woff");
-  font-style: normal;
+  font-style: bold;
   font-weight: normal;
 }
