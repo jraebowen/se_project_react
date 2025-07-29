@@ -1,6 +1,7 @@
 .header {
   height: 40px;
-  padding: 32px 0;
+  padding-top: 32px;
+  margin-bottom: 28px;
 }
 
 .header__container {
@@ -11,15 +12,17 @@
 .header__container_logo-date {
   display: flex;
   gap: 24px;
+  align-items: center;
 }
 
 .header__logo {
-  height: 32px;
+  height: 40px;
   width: 89px;
 }
 
 .header__date-location {
   margin: 0;
+  font-size: 20px;
 }
 
 .header__container_profile-details {

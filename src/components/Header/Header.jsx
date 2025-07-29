@@ -13,7 +13,7 @@ function Header() {
       <div className="header__container">
         <div className="header__container_logo-date">
           <img className="header__logo" src={logo} alt="WTWR logo"></img>
-          <p className="header__date-location"></p>
+          <p className="header__date-location">{currentDate}</p>
         </div>
         <div className="header__container_profile-details">
           <button className="header__button">+ Add Clothes</button>

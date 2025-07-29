@@ -13,8 +13,8 @@ function App() {
     <>
       <div className="page">
         <div className="page__content">
-          <Header></Header>
-          <Main></Main>
+          <Header />
+          <Main />
         </div>
       </div>
     </>
