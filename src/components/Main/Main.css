@@ -1,3 +1,7 @@
+.main {
+  flex-grow: 1;
+}
+
 .cards__text {
   margin: 0 0 40px 0;
 }
