@@ -1,0 +1,25 @@
+.item-card {
+  position: relative;
+}
+
+.item-card__title {
+  position: absolute;
+  display: flex;
+  left: 126px;
+  top: 15px;
+  color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 1);
+  font-size: 16px;
+  text-align: center;
+  align-items: center;
+  height: 24px;
+  border-radius: 4px;
+  margin: 0;
+  padding: 2px 12px;
+}
+
+.item-card__image {
+  max-width: 323px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+}
