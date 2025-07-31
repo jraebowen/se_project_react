@@ -2,18 +2,22 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.webp";
 
-function Header() {
+function Header({ weatherData }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
+  const location = weatherData.location;
 
   return (
     <header className="header">
       <div className="header__container">
         <div className="header__container_logo-date">
           <img className="header__logo" src={logo} alt="WTWR logo"></img>
-          <p className="header__date-location">{currentDate}</p>
+          <p className="header__date-location">
+            {currentDate}, {location}
+          </p>
         </div>
         <div className="header__container_profile-details">
           <button className="header__button">+ Add Clothes</button>
