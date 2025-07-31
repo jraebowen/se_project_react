@@ -16,6 +16,8 @@ function App() {
     location: "",
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
