@@ -13,15 +13,16 @@ export const filterWeatherData = (data) => {
   const result = {};
   result.location = data.name;
   result.temp = { F: Math.round(data.main.temp) };
-  result.type = data.weather[0].main;
+  result.type = getWeatherType(result.temp.F);
   return result;
 };
 
-// console.log(data);
-// if (data.main.temp >= 86) {
-//   return "hot";
-// } else if (data.main.temp >= 66) {
-//   return "warm";
-// } else {
-//   return "cold";
-// }
+const getWeatherType = (data) => {
+  if (data >= 80) {
+    return "hot";
+  } else if (data >= 66 && data < 80) {
+    return "warm";
+  } else {
+    return "cold";
+  }
+};
