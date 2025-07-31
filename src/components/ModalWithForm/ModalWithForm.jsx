@@ -3,7 +3,7 @@ import "./ModalWithForm.css";
 function ModalWithForm() {
   return (
     <div className="form-modal">
-      <button type="button" class="form-modalmodal__close-button"></button>
+      <button type="button" className="form-modalmodal__close-button"></button>
       <h2 className="form-modal__title">t</h2>
       <form className="form">
         <fieldset className="form__fieldset">
@@ -12,8 +12,8 @@ function ModalWithForm() {
             type="text"
             className="form__input"
             placehodler="Name"
-            minlength="2"
-            maxlength="30"
+            minLength="2"
+            maxLength="30"
             required
           />
         </fieldset>
