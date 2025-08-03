@@ -39,7 +39,6 @@
   right: 5%;
   padding: 0;
   transition: opacity 0.3s ease-in-out;
-  /* background: transparent; */
 }
 
 .form-modal__close-button:hover {
@@ -64,12 +63,19 @@
   color: white;
   border: none;
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.3);
   height: 36px;
   padding: 0;
   width: 124px;
   transition: background-color 0.3s ease-in-out;
   margin-top: 32px;
+}
+
+.form-modal__button:enabled {
+  background-color: black;
+}
+
+.form-modal__button:disabled {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .form-modal__button:hover {
@@ -99,7 +105,7 @@
   font-size: 16px;
   font-weight: 700;
   line-height: 1;
-  padding: 0;
+  padding-left: 8px;
   margin: 0;
   width: 100%;
   border: none;
