@@ -1,5 +1,5 @@
 .form-modal {
-  visibility: visible;
+  /* visibility: visible; */
   position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
   top: 0;
@@ -13,20 +13,20 @@
 }
 
 .modal__is-opened {
-  visibility: visible;
+  /* visibility: visible; */
   /* add opacity and transition delay? */
 }
 
 .form-modal__container {
   background-color: white;
-  height: 436px;
-  max-width: 496px;
+  height: 372px;
+  max-width: 440px;
   width: 100%;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   position: relative;
-  padding: 20px;
+  padding: 28px 28px 36px;
 }
 
 .form-modal__close-button {
@@ -37,7 +37,14 @@
   position: absolute;
   top: 5%;
   right: 5%;
+  padding: 0;
+  transition: opacity 0.3s ease-in-out;
   /* background: transparent; */
+}
+
+.form-modal__close-button:hover {
+  cursor: pointer;
+  opacity: 70%;
 }
 
 .form-modal__title {
@@ -46,6 +53,7 @@
   font-weight: 700;
   line-height: 1;
   color: black;
+  margin: 0 0 24px 0;
 }
 
 .form-modal__button {
@@ -58,4 +66,72 @@
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0.3);
   height: 36px;
+  padding: 0;
+  width: 124px;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 32px;
+}
+
+.form-modal__button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.form__fieldset {
+  border: none;
+  max-width: 440px;
+  height: 52px;
+  padding: 0;
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.form__label {
+  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.form__input {
+  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.form__input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.form__legend {
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.form__fieldset_radio {
+  height: 108px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+
+.form__label-radio {
+  color: rgba(0, 0, 0, 0.5);
+  margin: 0;
+  display: flex;
+
+  gap: 11px;
+}
+
+.form__label-radio:checked + span {
+  color: black;
 }

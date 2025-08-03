@@ -4,7 +4,6 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-// import ModalWithForm from "../ModalWithForm/ModalWithForm";
 // import ItemModal from "../ItemModal/ItemModal";
 import { filterWeatherData, getWeather } from "../../utils/weatherAPI";
 import { location, apiKey } from "../../utils/constants";
@@ -17,6 +16,14 @@ function App() {
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     getWeather(location, apiKey)
@@ -38,7 +45,7 @@ function App() {
           <Main weatherData={weatherData} />
           <Footer />
         </div>
-        <ModalWithForm />
+        <ModalWithForm isModalOpen={isModalOpen} />
       </div>
     </>
   );
