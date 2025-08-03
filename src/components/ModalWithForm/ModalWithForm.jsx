@@ -50,7 +50,7 @@ function ModalWithForm({ isModalOpen, handleModalClose }) {
                 name="weather"
                 required
               />
-              <span>Hot</span>
+              <span className="form__label-text">Hot</span>
             </label>
             <label htmlFor="warm" className="form__label form__label-radio">
               <input
@@ -61,7 +61,7 @@ function ModalWithForm({ isModalOpen, handleModalClose }) {
                 name="weather"
                 required
               />
-              <span>Warm</span>
+              <span className="form__label-text">Warm</span>
             </label>
             <label htmlFor="cold" className="form__label form__label-radio">
               <input
@@ -72,7 +72,7 @@ function ModalWithForm({ isModalOpen, handleModalClose }) {
                 name="weather"
                 required
               />
-              <span>Cold</span>
+              <span className="form__label-text">Cold</span>
             </label>
           </fieldset>
         </form>
