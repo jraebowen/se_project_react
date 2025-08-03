@@ -1,5 +1,5 @@
 .form-modal {
-  /* visibility: visible; */
+  visibility: visible;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.3);
   top: 0;
@@ -9,12 +9,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* add transition? */
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
 }
 
 .modal__is-opened {
-  /* visibility: visible; */
-  /* add opacity and transition delay? */
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
 }
 
 .form-modal__container {
