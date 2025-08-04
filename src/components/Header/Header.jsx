@@ -2,7 +2,7 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.webp";
 
-function Header({ weatherData, handleModalOpen }) {
+function Header({ weatherData, handleAddCard }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -20,7 +20,11 @@ function Header({ weatherData, handleModalOpen }) {
           </p>
         </div>
         <div className="header__container_profile-details">
-          <button className="header__button" onClick={handleModalOpen}>
+          <button
+            type="button"
+            className="header__button"
+            onClick={handleAddCard}
+          >
             + Add Clothes
           </button>
           <p className="header__name">Terrence Tegegne</p>

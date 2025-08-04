@@ -15,20 +15,37 @@ function App() {
     location: "",
   });
 
+  // const [selectedCard, setSelectedCard] = useState({});
+
   const [activeModal, setActiveModal] = useState("");
 
-  const handleModalOpen = () => {
-    setActiveModal(true);
+  const handleAddCard = () => {
+    setActiveModal("add-garment");
   };
 
   const handleModalClose = () => {
     setActiveModal(false);
   };
 
+  // const ModalWithForm = ({ activeModal, setActiveModal }) => {
+  //   useEffect(() => {
+  //     const handleEscapeKey = (e) => {
+  //       if (e.key === "Escape") {
+  //         handleModalClose();
+  //       }
+  //     };
+  //     if (activeModal) {
+  //       window.addEventListener("keydown", handleEscapeKey);
+  //     }
+  //     return () => {
+  //       window.removeEventListener("keydown", handleEscapeKey);
+  //     };
+  //   }, [activeModal, setActiveModal]);
+  // };
+
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
-        console.log(data);
         const filteredData = filterWeatherData(data);
         setWeatherData(filteredData);
       })
@@ -41,12 +58,13 @@ function App() {
     <>
       <div className="page">
         <div className="page__content">
-          <Header weatherData={weatherData} />
+          <Header weatherData={weatherData} handleAddCard={handleAddCard} />
           <Main weatherData={weatherData} />
           <Footer />
         </div>
         <ModalWithForm
           activeModal={activeModal}
+          handleModalClose={handleModalClose}
           title="New garment"
           buttonText="Add garment"
         >
@@ -115,6 +133,7 @@ function App() {
             </label>
           </fieldset>
         </ModalWithForm>
+        {/* <ItemModal handleModalClose={handleModalClose} /> */}
       </div>
     </>
   );

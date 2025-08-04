@@ -8,7 +8,11 @@ function ModalWithForm({
   handleModalClose,
 }) {
   return (
-    <div className="form-modal" show={activeModal}>
+    <div
+      className={`form-modal ${
+        activeModal === "add-garment" && "form-modal__is-opened"
+      }`}
+    >
       <div className="form-modal__container">
         <button
           type="button"
