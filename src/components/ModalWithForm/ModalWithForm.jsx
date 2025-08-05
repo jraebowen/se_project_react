@@ -9,9 +9,7 @@ function ModalWithForm({
 }) {
   return (
     <div
-      className={`form-modal ${
-        activeModal === "add-garment" && "form-modal__is-opened"
-      }`}
+      className={`modal ${activeModal === "add-garment" && "modal__is-opened"}`}
     >
       <div className="form-modal__container">
         <button

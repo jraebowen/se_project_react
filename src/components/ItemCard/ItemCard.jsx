@@ -1,6 +1,9 @@
 import "./ItemCard.css";
 
-function ItemCard({ item, handleModalOpen }) {
+function ItemCard({ item, handleCardClick }) {
+  const onCardClick = () => {
+    handleCardClick(item);
+  };
   return (
     <>
       <li className="item-card">
@@ -9,7 +12,7 @@ function ItemCard({ item, handleModalOpen }) {
           src={item.link}
           alt={item.name}
           className="item-card__image"
-          onClick={handleModalOpen}
+          onClick={onCardClick}
         ></img>
       </li>
     </>

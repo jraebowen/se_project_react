@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-// import ItemModal from "../ItemModal/ItemModal";
+import ItemModal from "../ItemModal/ItemModal";
 import { filterWeatherData, getWeather } from "../../utils/weatherAPI";
 import { location, apiKey } from "../../utils/constants";
 
@@ -15,9 +15,14 @@ function App() {
     location: "",
   });
 
-  // const [selectedCard, setSelectedCard] = useState({});
+  const [selectedCard, setSelectedCard] = useState({});
 
   const [activeModal, setActiveModal] = useState("");
+
+  const handleCardClick = (card) => {
+    setActiveModal("item-modal");
+    setSelectedCard(card);
+  };
 
   const handleAddCard = () => {
     setActiveModal("add-garment");
@@ -59,7 +64,7 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header weatherData={weatherData} handleAddCard={handleAddCard} />
-          <Main weatherData={weatherData} />
+          <Main weatherData={weatherData} handleCardClick={handleCardClick} />
           <Footer />
         </div>
         <ModalWithForm
@@ -133,7 +138,11 @@ function App() {
             </label>
           </fieldset>
         </ModalWithForm>
-        {/* <ItemModal handleModalClose={handleModalClose} /> */}
+        <ItemModal
+          activeModal={activeModal}
+          selectedCard={selectedCard}
+          handleModalClose={handleModalClose}
+        />
       </div>
     </>
   );
