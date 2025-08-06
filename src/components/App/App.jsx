@@ -32,21 +32,43 @@ function App() {
     setActiveModal(false);
   };
 
-  // const ModalWithForm = ({ activeModal, setActiveModal }) => {
-  //   useEffect(() => {
-  //     const handleEscapeKey = (e) => {
-  //       if (e.key === "Escape") {
-  //         handleModalClose();
-  //       }
-  //     };
-  //     if (activeModal) {
-  //       window.addEventListener("keydown", handleEscapeKey);
-  //     }
-  //     return () => {
-  //       window.removeEventListener("keydown", handleEscapeKey);
-  //     };
-  //   }, [activeModal, setActiveModal]);
-  // };
+  const isOpen = activeModal;
+  useEffect(() => {
+    const handleEscapeKey = (e) => {
+      if (e.key === "Escape") {
+        handleModalClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener("keydown", handleEscapeKey);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [isOpen, handleModalClose]);
+
+  useEffect(() => {
+    const handleClickOutsideModal = (e) => {
+      if (e.target.classList.contains("modal")) {
+        handleModalClose();
+      }
+    };
+    if (isOpen) {
+      window.addEventListener("mousedown", handleClickOutsideModal);
+    }
+    return () => {
+      window.removeEventListener("mousedown", handleClickOutsideModal);
+    };
+  }, [isOpen, handleModalClose]);
+
+  // function Validation() {
+  //   const [buttonState, setButtonState] = useState("");
+
+  //   const toggleButtonState = () => {
+  //     setButtonState(!buttonState);
+  //   };
+  // }
+  // return()
 
   useEffect(() => {
     getWeather(location, apiKey)
