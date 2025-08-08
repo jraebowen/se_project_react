@@ -16,6 +16,7 @@ function App() {
     location: "",
   });
 
+  //modal open/close functions
   const [selectedCard, setSelectedCard] = useState({});
 
   const [activeModal, setActiveModal] = useState("");
@@ -62,6 +63,8 @@ function App() {
     };
   }, [isOpen, handleModalClose]);
 
+  //weather api
+
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
@@ -73,14 +76,17 @@ function App() {
       });
   }, []);
 
+  //form validation functions
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
-  } = useForm();
+  } = useForm({
+    mode: "onChange",
+  });
 
-  const onSubmit = (formData) => {
+  const onSubmit = () => {
     reset();
     handleModalClose();
   };
@@ -98,6 +104,7 @@ function App() {
           handleModalClose={handleModalClose}
           onSubmit={onSubmit}
           handleSubmit={handleSubmit}
+          isValid={isValid}
           title="New garment"
           buttonText="Add garment"
         >
@@ -153,7 +160,8 @@ function App() {
               {...register("image", {
                 required: true,
                 pattern: {
-                  value: /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i,
+                  value:
+                    /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?(#.*)?$/i,
                   message: "Enter a valid image URL",
                 },
               })}
