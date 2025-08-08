@@ -1,5 +1,4 @@
 import "./ModalWithForm.css";
-import { useEffect } from "react";
 
 function ModalWithForm({
   children,
@@ -7,6 +6,8 @@ function ModalWithForm({
   title,
   activeModal,
   handleModalClose,
+  handleSubmit,
+  onSubmit,
 }) {
   return (
     <div
@@ -19,12 +20,16 @@ function ModalWithForm({
           onClick={handleModalClose}
         ></button>
         <h2 className="form-modal__title">{title}</h2>
-        <form className="form">{children}</form>
-        <button type="submit" className="form-modal__button">
-          {buttonText}
-        </button>
+        <form className="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+          {children}
+
+          <button type="submit" className="form-modal__button">
+            {buttonText}
+          </button>
+        </form>
       </div>
     </div>
   );
 }
+
 export default ModalWithForm;

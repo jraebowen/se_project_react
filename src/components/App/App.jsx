@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -61,15 +62,6 @@ function App() {
     };
   }, [isOpen, handleModalClose]);
 
-  // function Validation() {
-  //   const [buttonState, setButtonState] = useState("");
-
-  //   const toggleButtonState = () => {
-  //     setButtonState(!buttonState);
-  //   };
-  // }
-  // return()
-
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
@@ -80,6 +72,18 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
+  const onSubmit = (formData) => {
+    reset();
+    handleModalClose();
+  };
 
   return (
     <>
@@ -92,47 +96,93 @@ function App() {
         <ModalWithForm
           activeModal={activeModal}
           handleModalClose={handleModalClose}
+          onSubmit={onSubmit}
+          handleSubmit={handleSubmit}
           title="New garment"
           buttonText="Add garment"
         >
           <fieldset className="form__fieldset">
-            <label htmlFor="name-input" className="form__label">
-              Name
+            <label
+              htmlFor="name-input"
+              className={`form__label ${
+                errors.name ? "form__label_type_error" : ""
+              }`}
+            >
+              Name{" "}
+              {errors.name && (
+                <span className="form__input-error">
+                  (This field is required)
+                </span>
+              )}
             </label>
             <input
               type="text"
-              className="form__input"
+              className={`form__input ${
+                errors.name ? "form__input_type_error" : ""
+              }`}
               id="name-input"
               placeholder="Name"
-              minLength="2"
-              maxLength="30"
-              required
+              {...register("name", {
+                required: true,
+                minLength: 2,
+                maxLength: 30,
+              })}
             />
           </fieldset>
           <fieldset className="form__fieldset">
-            <label htmlFor="image-input" className="form__label">
+            <label
+              htmlFor="image-input"
+              className={`form__label ${
+                errors.image ? "form__label_type_error" : ""
+              }`}
+            >
               Image
+              {errors.image && (
+                <span className="form__input-error">
+                  {errors.image.type === "pattern"
+                    ? " (Please enter a valid image URL)"
+                    : " (This field is required)"}
+                </span>
+              )}
             </label>
             <input
               type="url"
-              className="form__input"
+              className={`form__input ${
+                errors.image ? "form__input_type_error" : ""
+              }`}
+              {...register("image", {
+                required: true,
+                pattern: {
+                  value: /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)$/i,
+                  message: "Enter a valid image URL",
+                },
+              })}
               id="image-input"
               placeholder="Image URL"
-              minLength="2"
-              maxLength="30"
-              required
             />
           </fieldset>
           <fieldset className="form__fieldset form__fieldset_radio">
-            <legend className="form__legend">Select the weather type:</legend>
+            <legend
+              className={`form__legend ${
+                errors.weather ? "form__legend_type_error" : ""
+              }`}
+            >
+              Select the weather type:{" "}
+              {errors.weather && (
+                <span className="form__input-error">
+                  (Please select a weather type)
+                </span>
+              )}
+            </legend>
+
             <label htmlFor="hot" className="form__label form__label-radio">
               <input
                 type="radio"
-                className="form__input form__input_radio form__label-radio"
+                className="form__input form__input_radio"
                 id="hot"
                 value="hot"
                 name="weather"
-                required
+                {...register("weather", { required: true })}
               />
               <span className="form__label-text">Hot</span>
             </label>
@@ -143,7 +193,7 @@ function App() {
                 id="warm"
                 value="warm"
                 name="weather"
-                required
+                {...register("weather", { required: true })}
               />
               <span className="form__label-text">Warm</span>
             </label>
@@ -154,7 +204,7 @@ function App() {
                 id="cold"
                 value="cold"
                 name="weather"
-                required
+                {...register("weather", { required: true })}
               />
               <span className="form__label-text">Cold</span>
             </label>

@@ -143,3 +143,20 @@
 .form__input_radio:checked + .form__label-text {
   color: black;
 }
+
+.form__input_type_error {
+  border-bottom-color: red;
+}
+
+.form__label_type_error {
+  color: red;
+}
+
+.form__legend_type_error {
+  color: red;
+}
+
+.form__input-error {
+  color: red;
+  font-size: 16px;
+}
