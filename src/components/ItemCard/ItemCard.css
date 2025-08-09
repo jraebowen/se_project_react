@@ -43,6 +43,7 @@
 @media screen and (max-width: 755px) {
   .cards__list {
     grid-template-columns: repeat(auto-fit, 164px);
+    gap: 15px;
   }
 
   .item-card__image {

@@ -79,5 +79,6 @@
     background-image: url(../../assets/closebuttonmobile.svg);
     top: 3%;
     right: 5%;
+    background-size: contain;
   }
 }
