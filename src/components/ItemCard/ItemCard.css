@@ -14,8 +14,9 @@
 .item-card__title {
   position: absolute;
   display: flex;
-  left: 126px;
+  left: 50%;
   top: 15px;
+  transform: translateX(-50%);
   color: rgba(0, 0, 0, 0.6);
   background-color: rgba(255, 255, 255, 1);
   font-size: 16px;
@@ -28,7 +29,6 @@
 }
 
 .item-card__image {
-  max-width: 323px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   transition: box-shadow 0.2s ease-in-out;
@@ -38,4 +38,23 @@
 .item-card__image:hover {
   cursor: pointer;
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 755px) {
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 164px);
+  }
+
+  .item-card__image {
+    max-width: 164px;
+    height: 164px;
+  }
+  .item-card {
+    max-width: 164px;
+    height: 164px;
+  }
+
+  .item-card__title {
+    top: 7px;
+  }
 }

@@ -160,3 +160,28 @@
   color: red;
   font-size: 16px;
 }
+
+@media screen and (max-width: 755px) {
+  .form-modal__container {
+    max-width: 319px;
+    height: 391px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .form-modal__close-button {
+    background-image: url(../../assets/closebuttonmobile.svg);
+    background-color: transparent;
+    top: 3%;
+    right: 5%;
+  }
+
+  .form-modal__title {
+    font-size: 20px;
+  }
+  .form-modal__button {
+    width: 343px;
+  }
+}

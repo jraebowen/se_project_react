@@ -58,3 +58,35 @@
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
 }
+
+.header__container_profile-details_mobile {
+  display: none;
+}
+
+@media screen and (max-width: 755px) {
+  .header {
+    height: 100px;
+    margin-bottom: 16px;
+  }
+
+  .header__container_logo-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header__container_profile-details_desktop {
+    display: none;
+  }
+
+  .header__profile-details_mobile-button {
+    display: flex;
+    background-image: url(../../assets/mobilehamburgermenu.svg);
+    height: 44px;
+    width: 44px;
+    border: none;
+    background-size: 100%;
+    background-color: transparent;
+    padding: 0;
+    align-self: flex-start;
+  }
+}

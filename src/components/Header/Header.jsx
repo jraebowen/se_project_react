@@ -19,7 +19,7 @@ function Header({ weatherData, handleAddCard }) {
             {currentDate}, {location}
           </p>
         </div>
-        <div className="header__container_profile-details">
+        <div className="header__container_profile-details header__container_profile-details_desktop">
           <button
             type="button"
             className="header__button"
@@ -30,6 +30,10 @@ function Header({ weatherData, handleAddCard }) {
           <p className="header__name">Terrence Tegegne</p>
           <img src={avatar} alt="profile picture" className="header__avatar" />
         </div>
+        <button
+          type="button"
+          className="header__button header__profile-details_mobile-button"
+        ></button>
       </div>
     </header>
   );

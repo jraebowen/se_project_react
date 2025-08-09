@@ -21,6 +21,8 @@ function App() {
 
   const [activeModal, setActiveModal] = useState("");
 
+  const [isMobileMenuOpened, setisMobileMenuOpened] = useState(false);
+
   const handleCardClick = (card) => {
     setActiveModal("item-modal");
     setSelectedCard(card);
@@ -29,6 +31,8 @@ function App() {
   const handleAddCard = () => {
     setActiveModal("add-garment");
   };
+
+  const toggleMobileMenu = () => {};
 
   const handleModalClose = () => {
     setActiveModal(false);

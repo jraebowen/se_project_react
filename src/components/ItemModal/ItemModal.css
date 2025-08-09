@@ -70,3 +70,14 @@
   line-height: 24px;
   margin: 0 0 32px 0;
 }
+@media screen and (max-width: 755px) {
+  .item-modal__container {
+    max-width: 343px;
+    height: 463px;
+  }
+  .item-modal__close-button {
+    background-image: url(../../assets/closebuttonmobile.svg);
+    top: 3%;
+    right: 5%;
+  }
+}

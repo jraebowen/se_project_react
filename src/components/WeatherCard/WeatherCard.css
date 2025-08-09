@@ -21,3 +21,9 @@
   width: 100%;
   border-radius: 12px;
 }
+
+@media screen and (max-width: 755px) {
+  .weather-card {
+    margin-bottom: 32px;
+  }
+}
