@@ -176,6 +176,7 @@
     background-color: transparent;
     top: 3%;
     right: 5%;
+    background-size: contain;
   }
 
   .form-modal__title {
