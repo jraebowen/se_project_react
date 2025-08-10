@@ -63,6 +63,10 @@
   display: none;
 }
 
+.header__container_profile-details_mobile-button {
+  display: none;
+}
+
 @media screen and (max-width: 755px) {
   .header {
     height: 100px;
@@ -83,7 +87,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 93%;
+    width: 95%;
     background-color: white;
     margin: 18px 16px 0 16px;
     box-sizing: border-box;
