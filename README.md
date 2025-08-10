@@ -37,6 +37,9 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
 
 [Link to the project on Figma](https://www.figma.com/design/F03bTb81Pw8IDPj5Y9rc5i/Sprint-10-Project--WTWR?node-id=311-433&p=f&t=xgSFxUeLZLB0EYNs-0)
 
+**Assets**
+[Link to the project on Figma](../se_project_react/src/assets/)
+
 **Screenshots of Responsive Design**
 
 TO BE UPDATED
@@ -46,5 +49,5 @@ TO BE UPDATED
 
 **Final Project**
 
-- [Link to live project](https://jraebowen.github.io/se_project_spots/)
+- [Link to live project](https://jraebowen.github.io/se_project_react/)
 - Recorded overview of project: (To Be Updated)
