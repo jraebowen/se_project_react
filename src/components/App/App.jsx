@@ -6,7 +6,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import ItemModal from "../ItemModal/ItemModal";
-import { filterWeatherData, getWeather } from "../../utils/weatherAPI";
+import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
 import { defaultClothingItems } from "../../utils/constants";
 
@@ -17,12 +17,14 @@ function App() {
     location: "",
   });
 
+  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+
   //modal open/close functions
   const [selectedCard, setSelectedCard] = useState({});
 
   const [activeModal, setActiveModal] = useState("");
 
-  const [isMobileMenuOpened, setisMobileMenuOpened] = useState(false);
+  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
   const handleCardClick = (card) => {
     setActiveModal("item-modal");
@@ -34,7 +36,7 @@ function App() {
   };
 
   const toggleMobileMenu = () => {
-    setisMobileMenuOpened((prev) => !prev);
+    setIsMobileMenuOpened((prev) => !prev);
   };
 
   const handleModalClose = () => {
@@ -111,7 +113,7 @@ function App() {
           <Main
             weatherData={weatherData}
             handleCardClick={handleCardClick}
-            defaultClothingItems={defaultClothingItems}
+            clothingItems={clothingItems}
           />
           <Footer />
         </div>
