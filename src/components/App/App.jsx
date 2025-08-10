@@ -32,7 +32,9 @@ function App() {
     setActiveModal("add-garment");
   };
 
-  const toggleMobileMenu = () => {};
+  const toggleMobileMenu = () => {
+    setisMobileMenuOpened((prev) => !prev);
+  };
 
   const handleModalClose = () => {
     setActiveModal(false);
@@ -99,7 +101,12 @@ function App() {
     <>
       <div className="page">
         <div className="page__content">
-          <Header weatherData={weatherData} handleAddCard={handleAddCard} />
+          <Header
+            weatherData={weatherData}
+            handleAddCard={handleAddCard}
+            toggleMobileMenu={toggleMobileMenu}
+            isMobileMenuOpened={isMobileMenuOpened}
+          />
           <Main weatherData={weatherData} handleCardClick={handleCardClick} />
           <Footer />
         </div>

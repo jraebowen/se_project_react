@@ -2,7 +2,12 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.webp";
 
-function Header({ weatherData, handleAddCard }) {
+function Header({
+  weatherData,
+  handleAddCard,
+  toggleMobileMenu,
+  isMobileMenuOpened,
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -30,10 +35,37 @@ function Header({ weatherData, handleAddCard }) {
           <p className="header__name">Terrence Tegegne</p>
           <img src={avatar} alt="profile picture" className="header__avatar" />
         </div>
-        <button
-          type="button"
-          className="header__button header__profile-details_mobile-button"
-        ></button>
+        {!isMobileMenuOpened && (
+          <button
+            type="button"
+            className="header__container_profile-details header__container_profile-details_mobile-button"
+            onClick={toggleMobileMenu}
+          ></button>
+        )}
+        {isMobileMenuOpened && (
+          <div className="header__container_profile-details header__container_profile-details_mobile-modal">
+            <button
+              type="button"
+              className="profile-modal__close-button"
+              onClick={toggleMobileMenu}
+            ></button>
+            <button
+              type="button"
+              className="header__button"
+              onClick={handleAddCard}
+            >
+              + Add Clothes
+            </button>
+            <div className="header__details-mobile">
+              <p className="header__name">Terrence Tegegne</p>
+              <img
+                src={avatar}
+                alt="profile picture"
+                className="header__avatar"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
