@@ -40,7 +40,7 @@ function Header({
             type="button"
             className="header__container_profile-details header__container_profile-details_mobile-button"
             onClick={toggleMobileMenu}
-          ></button>
+          />
         )}
         {isMobileMenuOpened && (
           <div className="header__container_profile-details header__container_profile-details_mobile-modal">
