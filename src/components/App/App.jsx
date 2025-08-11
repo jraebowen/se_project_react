@@ -117,6 +117,7 @@ function App() {
       </div>
       <ModalWithForm
         activeModal={activeModal}
+        isOpen={activeModal === "add-garment"}
         handleModalClose={handleModalClose}
         onSubmit={onSubmit}
         handleSubmit={handleSubmit}
