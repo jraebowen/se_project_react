@@ -12,7 +12,7 @@ function ItemCard({ item, handleCardClick }) {
         alt={item.name}
         className="item-card__image"
         onClick={onCardClick}
-      ></img>
+      />
     </li>
   );
 }

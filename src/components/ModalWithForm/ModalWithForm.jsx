@@ -19,7 +19,7 @@ function ModalWithForm({
           type="button"
           className="form-modal__close-button"
           onClick={handleModalClose}
-        ></button>
+        />
         <h2 className="form-modal__title">{title}</h2>
         <form className="form" noValidate onSubmit={handleSubmit(onSubmit)}>
           {children}

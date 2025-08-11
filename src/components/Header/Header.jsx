@@ -19,7 +19,7 @@ function Header({
     <header className="header">
       <div className="header__container">
         <div className="header__container_logo-date">
-          <img className="header__logo" src={logo} alt="WTWR logo"></img>
+          <img className="header__logo" src={logo} alt="WTWR logo" />
           <p className="header__date-location">
             {currentDate}, {location}
           </p>
@@ -48,7 +48,7 @@ function Header({
               type="button"
               className="profile-modal__close-button"
               onClick={toggleMobileMenu}
-            ></button>
+            />
             <button
               type="button"
               className="header__button"
