@@ -40,7 +40,7 @@ function App() {
   };
 
   const handleModalClose = () => {
-    setActiveModal(false);
+    setActiveModal("");
   };
 
   useEffect(() => {
