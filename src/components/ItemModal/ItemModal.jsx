@@ -3,7 +3,9 @@ import "./ItemModal.css";
 function ItemModal({ activeModal, selectedCard, handleModalClose }) {
   return (
     <div
-      className={`modal ${activeModal === "item-modal" && "modal__is-opened"}`}
+      className={`item-modal ${
+        activeModal === "item-modal" && "item-modal__is-opened"
+      }`}
     >
       <div className="item-modal__container">
         <button
