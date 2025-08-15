@@ -1,0 +1,75 @@
+.weather-toggle {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.weather-toggle__label {
+  border: 2px solid rgba(126, 126, 126, 1);
+  width: 52px;
+  height: 24px;
+  border-radius: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  font-size: 14px;
+}
+
+.weather-toggle__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weather-toggle__label:hover {
+  border: 2px solid black;
+}
+
+.weather-toggle__label:hover .weather-toggle__button:hover {
+  width: 30px;
+}
+
+.weather-toggle__label .weather-toggle__button {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 45px;
+  transition: 0.2s;
+  background: rgba(0, 0, 0, 1);
+  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+}
+
+.weather-toggle:checked + .weather-toggle__label .weather-toggle__button {
+  left: calc(100% - -2px);
+  transform: translateX(-100%);
+}
+
+.weather-toggle__label:active .weather-toggle__button {
+  border: 2px solid black;
+}
+
+.weather-toggle__fahrenheit {
+  position: absolute;
+  left: 7px;
+  z-index: 1000;
+  color: rgba(126, 126, 126, 1);
+}
+
+.weather-toggle__celcius {
+  position: absolute;
+  right: 7px;
+  z-index: 1000;
+  color: rgba(126, 126, 126, 1);
+}
+
+@media screen and (max-width: 755px) {
+  .weather-toggle__label {
+    margin: 0 0 40px 0;
+  }
+}

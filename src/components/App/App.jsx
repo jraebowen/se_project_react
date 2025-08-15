@@ -17,6 +17,8 @@ function App() {
     location: "",
   });
 
+  const [weatherToggle, setWeatherToggle] = useState(false);
+
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
   //modal open/close functions
@@ -25,6 +27,10 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+
+  const handleWeatherToggle = () => {
+    setWeatherToggle(!weatherToggle);
+  };
 
   const handleCardClick = (card) => {
     setActiveModal("item-modal");
@@ -107,6 +113,8 @@ function App() {
           handleAddCard={handleAddCard}
           toggleMobileMenu={toggleMobileMenu}
           isMobileMenuOpened={isMobileMenuOpened}
+          weatherToggleOn={weatherToggle}
+          handleWeatherToggle={handleWeatherToggle}
         />
         <Main
           weatherData={weatherData}
