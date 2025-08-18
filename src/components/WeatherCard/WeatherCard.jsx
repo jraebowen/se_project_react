@@ -1,5 +1,7 @@
 import "./WeatherCard.css";
+import { useContext } from "react";
 import { weatherImages } from "../../utils/constants";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 const defaultWeatherImage = new URL(
   "../../assets/default.webp",
   import.meta.url
@@ -14,9 +16,15 @@ function WeatherCard({ weatherData }) {
 
   const weatherOption = filteredOptions[0]?.image || defaultWeatherImage;
 
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   return (
     <section className="weather-card">
-      <p className="weather-card__temp">{weatherData.temp.F}°F</p>
+      <p className="weather-card__temp">
+        {" "}
+        {currentTemperatureUnit === "F"
+          ? `${weatherData.temp[currentTemperatureUnit]}°F`
+          : `${weatherData.temp[currentTemperatureUnit]}°C`}
+      </p>
       <img
         src={weatherOption}
         alt={weatherData.condition}
