@@ -8,8 +8,6 @@ function Header({
   handleAddCard,
   toggleMobileMenu,
   isMobileMenuOpened,
-  weatherToggleOn,
-  handleWeatherToggle,
 }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -28,10 +26,7 @@ function Header({
           </p>
         </div>
         <div className="header__container_profile-details header__container_profile-details_desktop">
-          <ToggleSwitch
-            weatherToggleOn={weatherToggleOn}
-            handleWeatherToggle={handleWeatherToggle}
-          />
+          <ToggleSwitch />
           <button
             type="button"
             className="header__button"
@@ -51,10 +46,7 @@ function Header({
         )}
         {isMobileMenuOpened && (
           <div className="header__container_profile-details header__container_profile-details_mobile-modal">
-            <ToggleSwitch
-              weatherToggleOn={weatherToggleOn}
-              handleWeatherToggle={handleWeatherToggle}
-            />
+            <ToggleSwitch />
             <button
               type="button"
               className="profile-modal__close-button"
