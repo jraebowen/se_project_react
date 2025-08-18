@@ -1,4 +1,5 @@
 import "./Header.css";
+import { Link } from "react-router-dom";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.webp";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
@@ -20,7 +21,9 @@ function Header({
     <header className="header">
       <div className="header__container">
         <div className="header__container_logo-date">
-          <img className="header__logo" src={logo} alt="WTWR logo" />
+          <Link to="/">
+            <img className="header__logo" src={logo} alt="WTWR logo" />
+          </Link>
           <p className="header__date-location">
             {currentDate}, {location}
           </p>
@@ -34,7 +37,9 @@ function Header({
           >
             + Add Clothes
           </button>
-          <p className="header__name">Terrence Tegegne</p>
+          <Link to="/profile" className="header__name">
+            <p>Terrence Tegegne</p>{" "}
+          </Link>
           <img src={avatar} alt="profile picture" className="header__avatar" />
         </div>
         {!isMobileMenuOpened && (
@@ -60,7 +65,10 @@ function Header({
               + Add Clothes
             </button>
             <div className="header__details-mobile">
-              <p className="header__name">Terrence Tegegne</p>
+              <Link to="/profile" className="header__name">
+                {" "}
+                <p>Terrence Tegegne</p>
+              </Link>
               <img
                 src={avatar}
                 alt="profile picture"
