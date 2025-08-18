@@ -1,0 +1,168 @@
+import "./AddItemModal.css";
+import { useState } from "react";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+
+// onAddItem refers to handleAddItemSubmit, which is declared in App.js
+const AddItemModal = ({
+  isOpen,
+  handleModalClose,
+  onSubmit,
+  handleSubmit,
+  isValid,
+  errors,
+}) => {
+  const [name, setName] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [weather, setWeather] = useState("");
+
+  // use a useEffect hook to reset the input field state to empty strings when
+  // the modal is opened
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleImageUpload = (e) => {
+    setImageUrl(e.target.value);
+  };
+
+  const handleWeatherSelection = (e) => {
+    setWeather(e.target.value);
+  };
+
+  function handleSubmit(e) {
+    // e.preventDefault();
+    // call onAddItem with appropriate arguments
+  }
+
+  return (
+    <ModalWithForm
+      isOpen={isOpen}
+      handleModalClose={handleModalClose}
+      onSubmit={onSubmit}
+      handleSubmit={handleSubmit}
+      isValid={isValid}
+      title="New garment"
+      buttonText="Add garment"
+    >
+      <fieldset className="form__fieldset">
+        <label
+          htmlFor="name-input"
+          className={`form__label ${
+            errors.name ? "form__label_type_error" : ""
+          }`}
+        >
+          Name{" "}
+          {errors.name && (
+            <span className="form__input-error">(This field is required)</span>
+          )}
+        </label>
+        <input
+          type="text"
+          className={`form__input ${
+            errors.name ? "form__input_type_error" : ""
+          }`}
+          id="name-input"
+          placeholder="Name"
+          onChange={handleNameChange}
+          value={name}
+          //   {...register("name", {
+          //     required: true,
+          //     minLength: 2,
+          //     maxLength: 30,
+          //   })}
+        />
+      </fieldset>
+      <fieldset className="form__fieldset">
+        <label
+          htmlFor="image-input"
+          className={`form__label ${
+            errors.image ? "form__label_type_error" : ""
+          }`}
+        >
+          Image
+          {errors.image && (
+            <span className="form__input-error">
+              {errors.image.type === "pattern"
+                ? " (Please enter a valid image URL)"
+                : " (This field is required)"}
+            </span>
+          )}
+        </label>
+        <input
+          type="url"
+          className={`form__input ${
+            errors.image ? "form__input_type_error" : ""
+          }`}
+          //   {...register("image", {
+          //     required: true,
+          //     pattern: {
+          //       value:
+          //         /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?(#.*)?$/i,
+          //       message: "Enter a valid image URL",
+          //     },
+          //   })}
+          id="image-input"
+          placeholder="Image URL"
+          onChange={handleImageUpload}
+          value={imageUrl}
+        />
+      </fieldset>
+      <fieldset className="form__fieldset form__fieldset_radio">
+        <legend
+          className={`form__legend ${
+            errors.weather ? "form__legend_type_error" : ""
+          }`}
+        >
+          Select the weather type:{" "}
+          {errors.weather && (
+            <span className="form__input-error">
+              (Please select a weather type)
+            </span>
+          )}
+        </legend>
+
+        <label htmlFor="hot" className="form__label form__label-radio">
+          <input
+            type="radio"
+            className="form__input form__input_radio"
+            id="hot"
+            value="hot"
+            name="weather"
+            onChange={handleWeatherSelection}
+            checked={weather === "hot"}
+            // {...register("weather", { required: true })}
+          />
+          <span className="form__label-text">Hot</span>
+        </label>
+        <label htmlFor="warm" className="form__label form__label-radio">
+          <input
+            type="radio"
+            className="form__input form__input_radio"
+            id="warm"
+            value="warm"
+            name="weather"
+            onChange={handleWeatherSelection}
+            checked={weather === "warm"}
+            // {...register("weather", { required: true })}
+          />
+          <span className="form__label-text">Warm</span>
+        </label>
+        <label htmlFor="cold" className="form__label form__label-radio">
+          <input
+            type="radio"
+            className="form__input form__input_radio"
+            id="cold"
+            value="cold"
+            name="weather"
+            onChange={handleWeatherSelection}
+            checked={weather === "cold"}
+            // {...register("weather", { required: true })}
+          />
+          <span className="form__label-text">Cold</span>
+        </label>
+      </fieldset>
+    </ModalWithForm>
+  );
+};
+export default AddItemModal;
