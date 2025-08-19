@@ -54,6 +54,12 @@
   height: 498px;
 }
 
+.item-modal__text {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
 .item-modal__content {
   background-color: white;
   padding-left: 32px;
@@ -70,6 +76,21 @@
   line-height: 24px;
   margin: 0 0 32px 0;
 }
+
+.item-modal__delete-btn {
+  color: red;
+  background-color: transparent;
+  margin: 20px 33px 0 0;
+  padding: 0;
+  border: none;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.item-modal__delete-btn:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
 @media screen and (max-width: 755px) {
   .item-modal__container {
     max-width: 343px;

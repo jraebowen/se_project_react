@@ -11,6 +11,7 @@ import { location, apiKey } from "../../utils/constants";
 import { defaultClothingItems } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 function App() {
   //weather-related states
@@ -71,7 +72,11 @@ function App() {
 
   useEffect(() => {
     const handleClickOutsideModal = (e) => {
-      if (e.target.classList.contains("modal")) {
+      if (
+        e.target.classList.contains("modal") ||
+        e.target.classList.contains("item-modal") ||
+        e.target.classList.contains("delete-modal")
+      ) {
         handleModalClose();
       }
     };
@@ -96,9 +101,20 @@ function App() {
   }, []);
 
   const handleAddItemSubmit = (item) => {
-    setClothingItems((prevItems) => {
-      [item, prevItems];
-    });
+    setClothingItems((prevItems) => [item, ...prevItems]);
+    handleModalClose();
+  };
+
+  //delete card functions
+  const openConfirmationModal = (card) => {
+    setActiveModal("delete-modal");
+    setSelectedCard(card);
+  };
+
+  const handleCardDelete = (card) => {
+    setClothingItems((prevItems) =>
+      prevItems.filter((item) => item._id !== card._id)
+    );
     handleModalClose();
   };
 
@@ -147,6 +163,13 @@ function App() {
           activeModal={activeModal}
           selectedCard={selectedCard}
           onClose={handleModalClose}
+          onDeleteClick={openConfirmationModal}
+        />
+        <DeleteModal
+          activeModal={activeModal}
+          onClose={handleModalClose}
+          onCardDelete={handleCardDelete}
+          selectedCard={selectedCard}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>

@@ -1,0 +1,85 @@
+.delete-modal {
+  visibility: hidden;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: visibility 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.delete-modal__is-opened {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.delete-modal__container {
+  background-color: white;
+  height: 280px;
+  max-width: 670px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.delete-modal__close-button {
+  background-image: url(../../assets/closebuttondark.svg);
+  background-color: transparent;
+  height: 20px;
+  width: 20px;
+  border: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.delete-modal__close-button:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+.delete-modal__content {
+  margin: 0 auto;
+  width: 367px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.delete-modal__text {
+  margin: 60px 0 40px 0;
+  line-height: 24px;
+}
+
+.delete-modal__buttons {
+  background: transparent;
+  border: none;
+  transition: opacity 0.2s ease-in-out;
+  line-height: 24px;
+}
+
+.delete-modal__buttons:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+.delete-modal__buttons-confirm {
+  color: red;
+  margin: 0 0 24px 0;
+  padding: 0;
+}
+
+.delete-modal__buttons-cancel {
+  margin: 0 0 60px 0;
+  padding: 0;
+}
