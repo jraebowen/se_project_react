@@ -36,7 +36,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
     e.preventDefault();
     const newItem = {
       name,
-      link: imageUrl,
+      imageUrl,
       weather,
       _id: uuidv4(),
     };

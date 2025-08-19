@@ -8,10 +8,10 @@ import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
-import { defaultClothingItems } from "../../utils/constants";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import { getItems, addItem, deleteItem } from "../../utils/api";
 
 function App() {
   //weather-related states
@@ -24,7 +24,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   //card rendering states
-  const [clothingItems, setClothingItems] = useState(defaultClothingItems);
+  const [clothingItems, setClothingItems] = useState([]);
 
   //modal open/close states
   const [selectedCard, setSelectedCard] = useState({});
@@ -100,22 +100,47 @@ function App() {
       });
   }, []);
 
-  const handleAddItemSubmit = (item) => {
-    setClothingItems((prevItems) => [item, ...prevItems]);
-    handleModalClose();
+  //render cards from api
+  useEffect(() => {
+    getItems().then((data) => {
+      setClothingItems(data);
+    });
+  }, []);
+
+  //add new cards
+  const handleAddItemSubmit = (data) => {
+    addItem(data)
+      .then((data) => {
+        setClothingItems((prevItems) => [data, ...prevItems]);
+      })
+      .then(() => {
+        handleModalClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //delete card functions
   const openConfirmationModal = (card) => {
+    console.log(card);
     setActiveModal("delete-modal");
     setSelectedCard(card);
   };
 
   const handleCardDelete = (card) => {
-    setClothingItems((prevItems) =>
-      prevItems.filter((item) => item._id !== card._id)
-    );
-    handleModalClose();
+    deleteItem({ itemId: card._id })
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== card._id)
+        );
+      })
+      .then(() => {
+        handleModalClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -148,6 +173,7 @@ function App() {
                 <Profile
                   handleCardClick={handleCardClick}
                   onAddCard={handleAddCard}
+                  clothingItems={clothingItems}
                 />
               }
             />
