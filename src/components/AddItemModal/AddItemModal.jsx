@@ -1,23 +1,24 @@
 import "./AddItemModal.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 // onAddItem refers to handleAddItemSubmit, which is declared in App.js
-const AddItemModal = ({
-  isOpen,
-  handleModalClose,
-  onSubmit,
-  handleSubmit,
-  isValid,
-  errors,
-}) => {
+const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
 
-  // use a useEffect hook to reset the input field state to empty strings when
-  // the modal is opened
+  //clear results when opening modal
+  useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setImageUrl("");
+      setWeather("");
+    }
+  }, [isOpen]);
 
+  //form input functions
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -30,78 +31,56 @@ const AddItemModal = ({
     setWeather(e.target.value);
   };
 
-  function handleSubmit(e) {
-    // e.preventDefault();
-    // call onAddItem with appropriate arguments
-  }
+  //form submission function
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {
+      name,
+      link: imageUrl,
+      weather,
+      _id: uuidv4(),
+    };
+    onAddItem(newItem);
+  };
 
   return (
     <ModalWithForm
       isOpen={isOpen}
-      handleModalClose={handleModalClose}
-      onSubmit={onSubmit}
-      handleSubmit={handleSubmit}
-      isValid={isValid}
+      onClose={onClose}
+      onSubmit={handleFormSubmit}
       title="New garment"
       buttonText="Add garment"
     >
       <fieldset className="form__fieldset">
-        <label
-          htmlFor="name-input"
-          className={`form__label ${
-            errors.name ? "form__label_type_error" : ""
-          }`}
-        >
+        <label htmlFor="name-input" className="form__label">
           Name{" "}
-          {errors.name && (
+          {/* {errors.name && (
             <span className="form__input-error">(This field is required)</span>
-          )}
+          )} */}
         </label>
         <input
           type="text"
-          className={`form__input ${
-            errors.name ? "form__input_type_error" : ""
-          }`}
+          className="form__input"
           id="name-input"
           placeholder="Name"
           onChange={handleNameChange}
           value={name}
-          //   {...register("name", {
-          //     required: true,
-          //     minLength: 2,
-          //     maxLength: 30,
-          //   })}
         />
       </fieldset>
       <fieldset className="form__fieldset">
-        <label
-          htmlFor="image-input"
-          className={`form__label ${
-            errors.image ? "form__label_type_error" : ""
-          }`}
-        >
+        <label htmlFor="image-input" className="form__label">
           Image
-          {errors.image && (
+          {/* {errors.image && (
             <span className="form__input-error">
               {errors.image.type === "pattern"
                 ? " (Please enter a valid image URL)"
                 : " (This field is required)"}
             </span>
-          )}
+          )} */}
         </label>
         <input
           type="url"
-          className={`form__input ${
-            errors.image ? "form__input_type_error" : ""
-          }`}
-          //   {...register("image", {
-          //     required: true,
-          //     pattern: {
-          //       value:
-          //         /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?(#.*)?$/i,
-          //       message: "Enter a valid image URL",
-          //     },
-          //   })}
+          className="form__input"
           id="image-input"
           placeholder="Image URL"
           onChange={handleImageUpload}
@@ -109,17 +88,13 @@ const AddItemModal = ({
         />
       </fieldset>
       <fieldset className="form__fieldset form__fieldset_radio">
-        <legend
-          className={`form__legend ${
-            errors.weather ? "form__legend_type_error" : ""
-          }`}
-        >
+        <legend className="form__legend">
           Select the weather type:{" "}
-          {errors.weather && (
+          {/* {errors.weather && (
             <span className="form__input-error">
               (Please select a weather type)
             </span>
-          )}
+          )} */}
         </legend>
 
         <label htmlFor="hot" className="form__label form__label-radio">
@@ -131,7 +106,6 @@ const AddItemModal = ({
             name="weather"
             onChange={handleWeatherSelection}
             checked={weather === "hot"}
-            // {...register("weather", { required: true })}
           />
           <span className="form__label-text">Hot</span>
         </label>
@@ -144,7 +118,6 @@ const AddItemModal = ({
             name="weather"
             onChange={handleWeatherSelection}
             checked={weather === "warm"}
-            // {...register("weather", { required: true })}
           />
           <span className="form__label-text">Warm</span>
         </label>
@@ -157,7 +130,6 @@ const AddItemModal = ({
             name="weather"
             onChange={handleWeatherSelection}
             checked={weather === "cold"}
-            // {...register("weather", { required: true })}
           />
           <span className="form__label-text">Cold</span>
         </label>

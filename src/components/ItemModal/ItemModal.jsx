@@ -1,6 +1,6 @@
 import "./ItemModal.css";
 
-function ItemModal({ activeModal, selectedCard, handleModalClose }) {
+function ItemModal({ activeModal, selectedCard, OnClose }) {
   return (
     <div
       className={`item-modal ${
@@ -11,7 +11,7 @@ function ItemModal({ activeModal, selectedCard, handleModalClose }) {
         <button
           type="button"
           className="item-modal__close-button"
-          onClick={handleModalClose}
+          onClick={OnClose}
         />
         <img
           src={selectedCard.link}

@@ -5,10 +5,8 @@ function ModalWithForm({
   buttonText,
   title,
   isOpen,
-  handleModalClose,
-  handleSubmit,
+  onClose,
   onSubmit,
-  isValid,
 }) {
   return (
     <div className={`modal ${isOpen && "modal__is-opened"}`}>
@@ -16,17 +14,13 @@ function ModalWithForm({
         <button
           type="button"
           className="form-modal__close-button"
-          onClick={handleModalClose}
+          onClick={onClose}
         />
         <h2 className="form-modal__title">{title}</h2>
-        <form className="form" noValidate onSubmit={handleSubmit(onSubmit)}>
+        <form className="form" noValidate onSubmit={onSubmit}>
           {children}
 
-          <button
-            type="submit"
-            className="form-modal__button"
-            disabled={!isValid}
-          >
+          <button type="submit" className="form-modal__button">
             {buttonText}
           </button>
         </form>

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
@@ -85,7 +84,6 @@ function App() {
   }, [activeModal, handleModalClose]);
 
   //weather api
-
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
@@ -97,18 +95,8 @@ function App() {
       });
   }, []);
 
-  //form validation functions
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    reset,
-  } = useForm({
-    mode: "onChange",
-  });
-
-  const onSubmit = () => {
-    reset();
+  const handleAddItemSubmit = (item) => {
+    setClothingItems([item, ...clothingItems]);
     handleModalClose();
   };
 
@@ -145,17 +133,13 @@ function App() {
         </div>
         <AddItemModal
           isOpen={activeModal === "add-garment"}
-          handleModalClose={handleModalClose}
-          onSubmit={onSubmit}
-          handleSubmit={handleSubmit}
-          isValid={isValid}
-          errors={errors}
-          register={register}
+          onClose={handleModalClose}
+          onAddItem={handleAddItemSubmit}
         />
         <ItemModal
           activeModal={activeModal}
           selectedCard={selectedCard}
-          handleModalClose={handleModalClose}
+          onClose={handleModalClose}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>
