@@ -96,7 +96,9 @@ function App() {
   }, []);
 
   const handleAddItemSubmit = (item) => {
-    setClothingItems([item, ...clothingItems]);
+    setClothingItems((prevItems) => {
+      [item, prevItems];
+    });
     handleModalClose();
   };
 
