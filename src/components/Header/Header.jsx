@@ -56,7 +56,10 @@ function Header({
             <button
               type="button"
               className="header__button"
-              onClick={onAddCard}
+              onClick={() => {
+                onAddCard();
+                toggleMobileMenu();
+              }}
             >
               + Add Clothes
             </button>
