@@ -108,7 +108,7 @@ function App() {
         <div className="page__content">
           <Header
             weatherData={weatherData}
-            handleAddCard={handleAddCard}
+            onAddCard={handleAddCard}
             toggleMobileMenu={toggleMobileMenu}
             isMobileMenuOpened={isMobileMenuOpened}
           />
@@ -126,7 +126,12 @@ function App() {
             />
             <Route
               path="/profile"
-              element={<Profile handleCardClick={handleCardClick} />}
+              element={
+                <Profile
+                  handleCardClick={handleCardClick}
+                  onAddCard={handleAddCard}
+                />
+              }
             />
           </Routes>
           <Footer />

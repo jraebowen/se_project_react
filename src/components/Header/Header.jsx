@@ -6,7 +6,7 @@ import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({
   weatherData,
-  handleAddCard,
+  onAddCard,
   toggleMobileMenu,
   isMobileMenuOpened,
 }) {
@@ -30,11 +30,7 @@ function Header({
         </div>
         <div className="header__container_profile-details header__container_profile-details_desktop">
           <ToggleSwitch />
-          <button
-            type="button"
-            className="header__button"
-            onClick={handleAddCard}
-          >
+          <button type="button" className="header__button" onClick={onAddCard}>
             + Add Clothes
           </button>
           <Link to="/profile" className="header__name">
@@ -60,7 +56,7 @@ function Header({
             <button
               type="button"
               className="header__button"
-              onClick={handleAddCard}
+              onClick={onAddCard}
             >
               + Add Clothes
             </button>
