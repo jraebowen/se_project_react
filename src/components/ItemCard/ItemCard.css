@@ -32,7 +32,7 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   transition: box-shadow 0.2s ease-in-out;
-  max-width: 325px;
+  max-width: 323px;
 }
 
 .item-card__image:hover {

@@ -20,3 +20,44 @@
   margin: 0;
   padding: 0;
 }
+
+.sidebar__profile-buttons {
+  padding-left: 73px;
+}
+
+.sidebar__profile-button {
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+  text-align: left;
+  border: none;
+  background-color: transparent;
+  transition: opacity 0.2s ease-in-out;
+  font-family: "Cabinet Grotesk Medium", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  padding: 0;
+}
+
+.sidebar__profile-button:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+.sidebar__profile-edit {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 755px) {
+  .sidebar {
+    margin: 0;
+  }
+
+  .sidebar__profile-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar__profile-edit {
+    margin-bottom: 8px;
+  }
+}

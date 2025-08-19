@@ -12,6 +12,20 @@ function SideBar() {
         />
         <p className="sidebar__profile-name">Terrence Tegegne</p>
       </div>
+      <div className="sidebar__profile-buttons">
+        <button
+          type="button"
+          className="sidebar__profile-button sidebar__profile-edit"
+        >
+          Change Profile Data
+        </button>
+        <button
+          type="button"
+          className="sidebar__profile-button sidebar__profile-logout"
+        >
+          Logout
+        </button>
+      </div>
     </div>
   );
 }
