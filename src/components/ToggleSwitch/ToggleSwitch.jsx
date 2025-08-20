@@ -31,7 +31,7 @@ function ToggleSwitch() {
           F
         </span>
         <span
-          className={`weather-toggle__text weather-toggle__text_celcius
+          className={`weather-toggle__text weather-toggle__text_celsius
 ${currentTemperatureUnit === "C" ? "weather-toggle__text_color-white" : ""}`}
         >
           C
