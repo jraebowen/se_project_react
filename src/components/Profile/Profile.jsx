@@ -18,7 +18,7 @@ function Profile({ handleCardClick, onAddCard, clothingItems }) {
             + Add new
           </button>
         </div>
-        <section className="profile__clothes-section">
+        <section className="profile__content_clothes-section">
           <ClothesSection
             handleCardClick={handleCardClick}
             clothingItems={clothingItems}
