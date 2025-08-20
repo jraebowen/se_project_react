@@ -89,6 +89,48 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "",
+      "imageUrl": "sdf",
+      "weather": "",
+      "_id": 17
+    },
+    {
+      "name": "asdf",
+      "imageUrl": "asfd",
+      "weather": "hot",
+      "_id": 18
+    },
+    {
+      "name": "",
+      "imageUrl": "d",
+      "weather": "",
+      "_id": 19
+    },
+    {
+      "name": "s",
+      "imageUrl": "asdf",
+      "weather": "",
+      "_id": 20
+    },
+    {
+      "name": "",
+      "imageUrl": "",
+      "weather": "",
+      "_id": 21
+    },
+    {
+      "name": "",
+      "imageUrl": "",
+      "weather": "",
+      "_id": 22
+    },
+    {
+      "name": "",
+      "imageUrl": "",
+      "weather": "",
+      "_id": 23
     }
   ]
 }

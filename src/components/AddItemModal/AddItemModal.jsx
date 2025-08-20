@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-// onAddItem refers to handleAddItemSubmit, which is declared in App.js
 const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
+  const [error, setError] = useState({});
 
   //clear results when opening modal
   useEffect(() => {
@@ -15,20 +15,51 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       setName("");
       setImageUrl("");
       setWeather("");
+      setError({});
     }
   }, [isOpen]);
 
   //form input functions
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    const { value } = e.target;
+    setName(value);
+    validateField("name", value);
   };
 
   const handleImageUpload = (e) => {
-    setImageUrl(e.target.value);
+    const { value } = e.target;
+    setImageUrl(value);
+    validateField("imageUrl", value);
   };
 
   const handleWeatherSelection = (e) => {
-    setWeather(e.target.value);
+    const { value } = e.target;
+    setWeather(value);
+    validateField("weather", value);
+  };
+
+  const validateField = (input, value) => {
+    let error = "";
+    if (!value) {
+      error = "This is a required field";
+    } else if (input === "name" && (value.length < 2 || value.length > 30)) {
+      error = "This is a required field";
+    } else if (input === "imageUrl") {
+      const url = /^(ftp|http|https):\/\/[^ "]+$/;
+      if (!url.test(value)) {
+        error = "Enter a valid image URL";
+      }
+    }
+    setError((prev) => ({
+      ...prev,
+      [input]: error,
+    }));
+  };
+
+  const validateForm = () => {
+    if (error.name === "" && error.imageUrl === "" && error.weather === "") {
+      return true;
+    }
   };
 
   //form submission function
@@ -48,15 +79,16 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleFormSubmit}
+      onValidation={validateForm}
       title="New garment"
       buttonText="Add garment"
     >
       <fieldset className="form__fieldset">
         <label htmlFor="name-input" className="form__label">
           Name{" "}
-          {/* {errors.name && (
-            <span className="form__input-error">(This field is required)</span>
-          )} */}
+          {error.name && (
+            <span className="form__input-error">{error.name}</span>
+          )}
         </label>
         <input
           type="text"
@@ -69,14 +101,10 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="image-input" className="form__label">
-          Image
-          {/* {errors.image && (
-            <span className="form__input-error">
-              {errors.image.type === "pattern"
-                ? " (Please enter a valid image URL)"
-                : " (This field is required)"}
-            </span>
-          )} */}
+          Image{" "}
+          {error.imageUrl && (
+            <span className="form__input-error">{error.imageUrl}</span>
+          )}
         </label>
         <input
           type="url"
@@ -90,11 +118,9 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       <fieldset className="form__fieldset form__fieldset_radio">
         <legend className="form__legend">
           Select the weather type:{" "}
-          {/* {errors.weather && (
-            <span className="form__input-error">
-              (Please select a weather type)
-            </span>
-          )} */}
+          {error.weather && (
+            <span className="form__input-error">{error.weather}</span>
+          )}
         </legend>
 
         <label htmlFor="hot" className="form__label form__label-radio">
