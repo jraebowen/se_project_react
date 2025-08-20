@@ -102,9 +102,13 @@ function App() {
 
   //render cards from api
   useEffect(() => {
-    getItems().then((data) => {
-      setClothingItems(data);
-    });
+    getItems()
+      .then((data) => {
+        setClothingItems(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   //add new cards
