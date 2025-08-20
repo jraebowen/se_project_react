@@ -1,13 +1,14 @@
 const baseUrl = "http://localhost:3001";
 
+const checkResponse = (res) => {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Something went wrong: ${res.status}`);
+};
+
 export function getItems() {
-  return fetch(`${baseUrl}/items`)
-    .then((res) => {
-      return res.json();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  return fetch(`${baseUrl}/items`).then(checkResponse);
 }
 
 export function addItem({ name, imageUrl, weather }) {
@@ -21,27 +22,11 @@ export function addItem({ name, imageUrl, weather }) {
     headers: {
       "Content-Type": "application/json",
     },
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  }).then(checkResponse);
 }
 
 export function deleteItem({ itemId }) {
   return fetch(`${baseUrl}/items/${itemId}`, {
     method: "DELETE",
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("DELETE response:", data); // 👀 look here
-      return data;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  }).then(checkResponse);
 }
