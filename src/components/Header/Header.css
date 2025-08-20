@@ -18,7 +18,7 @@
 .header__logo {
   height: 40px;
   width: 89px;
-  transition: opacity, 0.2s, ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .header__logo:hover {
