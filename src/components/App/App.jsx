@@ -1,17 +1,22 @@
+//react imports
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+//css import
 import "./App.css";
+//components
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
-import { filterWeatherData, getWeather } from "../../utils/weatherApi";
-import { location, apiKey } from "../../utils/constants";
-import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
+//utils/api
+import { filterWeatherData, getWeather } from "../../utils/weatherApi";
+import { location, apiKey } from "../../utils/constants";
 import { getItems, addItem, deleteItem } from "../../utils/api";
+//contexts
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function App() {
   //weather-related states
@@ -96,7 +101,7 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch((err) => {
-        console.log("Failed to fetch weather data:", err);
+        console.error("Failed to fetch weather data:", err);
       });
   }, []);
 
@@ -107,7 +112,7 @@ function App() {
         setClothingItems(data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Failed to load cards: ", err);
       });
   }, []);
 
@@ -121,13 +126,12 @@ function App() {
         handleModalClose();
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Failed to add new item: ", err);
       });
   };
 
   //delete card functions
   const openConfirmationModal = (card) => {
-    console.log(card);
     setActiveModal("delete-modal");
     setSelectedCard(card);
   };
@@ -143,7 +147,7 @@ function App() {
         handleModalClose();
       })
       .catch((err) => {
-        console.log(err);
+        console.error("Failed to delete card: ", err);
       });
   };
 
