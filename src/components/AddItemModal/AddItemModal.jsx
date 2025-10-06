@@ -38,6 +38,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
     validateField("weather", value);
   };
 
+  //validation
   const validateField = (input, value) => {
     let error = "";
     if (!value) {

@@ -10,6 +10,8 @@ import Footer from "../Footer/Footer";
 import ItemModal from "../ItemModal/ItemModal";
 import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
+import LoginModal from "../LoginModal/LoginModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 //utils/api
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
@@ -51,6 +53,10 @@ function App() {
 
   const handleAddCard = () => {
     setActiveModal("add-garment");
+  };
+
+  const handleAddNewUser = () => {
+    setActiveModal("add-user");
   };
 
   const toggleMobileMenu = () => {
@@ -130,6 +136,18 @@ function App() {
       });
   };
 
+  //add new user
+  const handleUserRegister = (newUser) => {
+    auth
+      .register(newUser.email, newUser.name, newUser.password, newUser.avatar)
+      .then(() => {
+        Navigate("./login");
+      })
+      .catch((err) => {
+        console.error("Registration unsuccessful", err);
+      });
+  };
+
   //delete card functions
   const openConfirmationModal = (card) => {
     setActiveModal("delete-modal");
@@ -192,6 +210,11 @@ function App() {
           isOpen={activeModal === "add-garment"}
           onClose={handleModalClose}
           onAddItem={handleAddItemSubmit}
+        />
+        <RegisterModal
+          isOpen={activeModal === "add-user"}
+          onClose={handleModalClose}
+          handleRegistration={handleUserRegister}
         />
         <ItemModal
           activeModal={activeModal}
