@@ -32,6 +32,8 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
   - Bundling/building
 - API connection
   - Connected to: https://openweathermap.org/
+- Backend Repository
+  - https://github.com/jraebowen/se_project_express
 
 **Figma**
 
