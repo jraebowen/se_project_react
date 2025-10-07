@@ -1,4 +1,6 @@
 import { createContext } from "react";
-const CurrentTemperatureUnitContext = createContext();
 
-export default CurrentTemperatureUnitContext;
+const CurrentTemperatureUnitContext = createContext();
+const CurrentUserContext = createContext();
+
+export default { CurrentTemperatureUnitContext, CurrentUserContext };
