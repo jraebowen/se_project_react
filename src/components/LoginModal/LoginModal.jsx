@@ -77,7 +77,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       buttonText="Log In"
     >
       <fieldset className="form__fieldset">
-        <label htmlFor="email-input" className="form__label">
+        <label htmlFor="email-login-input" className="form__label">
           Email*{" "}
           {error.email && (
             <span className="form__input-error">{error.email}</span>
@@ -86,14 +86,14 @@ const LoginModal = ({ isOpen, onClose }) => {
         <input
           type="email"
           className="form__input"
-          id="email-input"
+          id="email-login-input"
           placeholder="Email"
           onChange={handleEmailLogin}
           value={email}
         />
       </fieldset>
       <fieldset className="form__fieldset">
-        <label htmlFor="password-input" className="form__label">
+        <label htmlFor="password-login-input" className="form__label">
           Password*{" "}
           {error.password && (
             <span className="form__input-error">{error.password}</span>
@@ -102,7 +102,7 @@ const LoginModal = ({ isOpen, onClose }) => {
         <input
           type="password"
           className="form__input"
-          id="password-input"
+          id="password-login-input"
           placeholder="Password"
           onChange={handlePasswordLogin}
           value={password}
@@ -111,7 +111,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       <button
         type="button"
         className="form-modal__secondary-button"
-        onClick={onSwitchToRegister}
+        // onClick={onSwitchToRegister}
       >
         or Register
       </button>

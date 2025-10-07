@@ -104,7 +104,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
       buttonText="Next"
     >
       <fieldset className="form__fieldset">
-        <label htmlFor="email-input" className="form__label">
+        <label htmlFor="email-register-input" className="form__label">
           Email*{" "}
           {error.email && (
             <span className="form__input-error">{error.email}</span>
@@ -113,14 +113,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
         <input
           type="email"
           className="form__input"
-          id="email-input"
+          id="email-register-input"
           placeholder="Email"
           onChange={handleEmailRegister}
           value={email}
         />
       </fieldset>
       <fieldset className="form__fieldset">
-        <label htmlFor="password-input" className="form__label">
+        <label htmlFor="password-register-input" className="form__label">
           Password*{" "}
           {error.password && (
             <span className="form__input-error">{error.password}</span>
@@ -129,14 +129,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
         <input
           type="password"
           className="form__input"
-          id="password-input"
+          id="password-register-input"
           placeholder="Password"
           onChange={handlePasswordRegister}
           value={password}
         />
       </fieldset>
       <fieldset className="form__fieldset">
-        <label htmlFor="name-input" className="form__label">
+        <label htmlFor="name-register-input" className="form__label">
           Name{" "}
           {error.name && (
             <span className="form__input-error">{error.name}</span>
@@ -145,14 +145,14 @@ const RegisterModal = ({ isOpen, onClose }) => {
         <input
           type="text"
           className="form__input"
-          id="name-input"
+          id="name-register-input"
           placeholder="Name"
           onChange={handleNameRegister}
           value={name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
-        <label htmlFor="avatar-input" className="form__label">
+        <label htmlFor="avatar-register-input" className="form__label">
           Avatar{" "}
           {error.avatar && (
             <span className="form__input-error">{error.avatar}</span>
@@ -161,7 +161,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
         <input
           type="url"
           className="form__input"
-          id="avatar-input"
+          id="avatar-register-input"
           placeholder="Avatar URL"
           onChange={handleAvatarRegister}
           value={avatar}
@@ -170,7 +170,7 @@ const RegisterModal = ({ isOpen, onClose }) => {
       <button
         type="button"
         className="form-modal__secondary-button"
-        onClick={onSwitchToLogin}
+        // onClick={onSwitchToLogin}
       >
         or Sign Up
       </button>
