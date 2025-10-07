@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [avatar, setAvatar] = useState("");
+const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [error, setError] = useState("");
 
   //clear results when opening modal
@@ -21,28 +23,12 @@ const RegisterModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   //form input functions
-  const handleEmailRegister = (e) => {
-    const { value } = e.target;
-    setEmail(value);
-    validateField("email", value);
-  };
-
-  const handlePasswordRegister = (e) => {
-    const { value } = e.target;
-    setPassword(value);
-    validateField("password", value);
-  };
-
-  const handleNameRegister = (e) => {
-    const { value } = e.target;
-    setName(value);
-    validateField("name", value);
-  };
-
-  const handleAvatarRegister = (e) => {
-    const { value } = e.target;
-    setAvatar(value);
-    validateField("avatar", value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   //validation
@@ -83,22 +69,16 @@ const RegisterModal = ({ isOpen, onClose }) => {
   };
 
   //form submission
-  const handleUserRegister = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
-      email,
-      password,
-      name,
-      avatar,
-    };
-    handleRegistration(newUser);
+    handleRegistration(data);
   };
 
   return (
     <ModalWithForm
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleUserRegister}
+      onSubmit={handleSubmit}
       onValidation={validateForm}
       title="Sign Up"
       buttonText="Next"
@@ -115,8 +95,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
           className="form__input"
           id="email-register-input"
           placeholder="Email"
-          onChange={handleEmailRegister}
-          value={email}
+          onChange={handleChange}
+          value={data.email}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -131,8 +111,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
           className="form__input"
           id="password-register-input"
           placeholder="Password"
-          onChange={handlePasswordRegister}
-          value={password}
+          onChange={handleChange}
+          value={data.password}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -147,8 +127,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
           className="form__input"
           id="name-register-input"
           placeholder="Name"
-          onChange={handleNameRegister}
-          value={name}
+          onChange={handleChange}
+          value={data.name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -163,8 +143,8 @@ const RegisterModal = ({ isOpen, onClose }) => {
           className="form__input"
           id="avatar-register-input"
           placeholder="Avatar URL"
-          onChange={handleAvatarRegister}
-          value={avatar}
+          onChange={handleChange}
+          value={data.avatar}
         />
       </fieldset>
       <button

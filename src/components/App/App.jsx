@@ -1,6 +1,6 @@
 //react imports
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 //css import
 import "./App.css";
 //components
@@ -17,6 +17,8 @@ import DeleteModal from "../DeleteModal/DeleteModal";
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
 import { getItems, addItem, deleteItem } from "../../utils/api";
+import * as auth from "../../utils/auth";
+import { setToken, getToken } from "../../utils/token";
 //contexts
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
@@ -27,6 +29,10 @@ function App() {
     temp: { F: 999 },
     location: "",
   });
+
+  //login states
+  const [userData, setUserData] = useState({ email: "", password: "" });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
@@ -55,8 +61,12 @@ function App() {
     setActiveModal("add-garment");
   };
 
-  const handleAddNewUser = () => {
+  const handleAddNewUserModal = () => {
     setActiveModal("add-user");
+  };
+
+  const handleLoginModal = () => {
+    setActiveModal("login-modal");
   };
 
   const toggleMobileMenu = () => {
@@ -124,7 +134,11 @@ function App() {
 
   //add new cards
   const handleAddItemSubmit = (data) => {
-    addItem(data)
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      return;
+    }
+    addItem(data, token)
       .then((data) => {
         setClothingItems((prevItems) => [data, ...prevItems]);
       })
@@ -137,16 +151,52 @@ function App() {
   };
 
   //add new user
-  const handleUserRegister = (newUser) => {
+  const handleRegistration = (newUser) => {
     auth
-      .register(newUser.email, newUser.name, newUser.password, newUser.avatar)
+      .signUp(newUser.email, newUser.name, newUser.password, newUser.avatar)
+      .then((data) => {
+        setUserData(data.user);
+        setIsLoggedIn(true);
+      })
       .then(() => {
-        Navigate("./login");
+        handleModalClose();
       })
       .catch((err) => {
         console.error("Registration unsuccessful", err);
       });
   };
+
+  //login functionality
+  const handleLogin = ({ email, password }) => {
+    if (!email || !password) {
+      return;
+    }
+    auth
+      .signIn(email, password)
+      .then((res) => {
+        if (res.jwt) {
+          setToken(res.jwt);
+          setUserData(res.user);
+          setIsLoggedIn(true);
+          handleModalClose();
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to log in", err);
+      });
+  };
+
+  //checking token
+  useEffect(() => {
+    const jwt = getToken();
+    if (!jwt) {
+      return;
+    }
+    auth.getUserInfo(jwt).then(({ email, name, avatar }) => {
+      setIsLoggedIn(true);
+      setUserData({ email, name, avatar });
+    });
+  }, []);
 
   //delete card functions
   const openConfirmationModal = (card) => {
@@ -155,7 +205,11 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-    deleteItem({ itemId: card._id })
+    const token = localStorage.getItem("jwt");
+    if (!token) {
+      return;
+    }
+    deleteItem({ itemId: card._id }, token)
       .then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== card._id)
@@ -196,11 +250,13 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Profile
-                  handleCardClick={handleCardClick}
-                  onAddCard={handleAddCard}
-                  clothingItems={clothingItems}
-                />
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
+                  <Profile
+                    handleCardClick={handleCardClick}
+                    onAddCard={handleAddCard}
+                    clothingItems={clothingItems}
+                  />
+                </ProtectedRoute>
               }
             />
           </Routes>
@@ -214,7 +270,12 @@ function App() {
         <RegisterModal
           isOpen={activeModal === "add-user"}
           onClose={handleModalClose}
-          handleRegistration={handleUserRegister}
+          handleRegistration={handleRegistration}
+        />
+        <LoginModal
+          isOpen={activeModal === "login-modal"}
+          onClose={handleModalClose}
+          handleLogin={handleLogin}
         />
         <ItemModal
           activeModal={activeModal}

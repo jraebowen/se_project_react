@@ -3,8 +3,10 @@ import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const LoginModal = ({ isOpen, onClose }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState("");
 
   //clear results when opening modal
@@ -17,16 +19,12 @@ const LoginModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   //form input functions
-  const handleEmailLogin = (e) => {
-    const { value } = e.target;
-    setEmail(value);
-    validateField("email", value);
-  };
-
-  const handlePasswordLogin = (e) => {
-    const { value } = e.target;
-    setPassword(value);
-    validateField("password", value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   //validation
@@ -58,20 +56,16 @@ const LoginModal = ({ isOpen, onClose }) => {
   };
 
   //form submission
-  const handleUserLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const userLogin = {
-      email,
-      password,
-    };
-    handleLogin(userLogin);
+    handleLogin(data);
   };
 
   return (
     <ModalWithForm
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={handleUserLogin}
+      onSubmit={handleSubmit}
       onValidation={validateForm}
       title="Log In"
       buttonText="Log In"
@@ -88,8 +82,8 @@ const LoginModal = ({ isOpen, onClose }) => {
           className="form__input"
           id="email-login-input"
           placeholder="Email"
-          onChange={handleEmailLogin}
-          value={email}
+          onChange={handleChange}
+          value={data.email}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -104,8 +98,8 @@ const LoginModal = ({ isOpen, onClose }) => {
           className="form__input"
           id="password-login-input"
           placeholder="Password"
-          onChange={handlePasswordLogin}
-          value={password}
+          onChange={handleChange}
+          value={data.password}
         />
       </fieldset>
       <button
