@@ -13,7 +13,7 @@ import AddItemModal from "../AddItemModal/AddItemModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "../ProtectedRoute";
 //utils/api
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
@@ -21,10 +21,8 @@ import { getItems, addItem, deleteItem } from "../../utils/api";
 import * as auth from "../../utils/auth";
 import { setToken, getToken } from "../../utils/token";
 //contexts
-import {
-  CurrentTemperatureUnitContext,
-  CurrentUserContext,
-} from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function App() {
   //weather-related states
@@ -35,7 +33,7 @@ function App() {
   });
 
   //login states
-  const [userData, setUserData] = useState({ email: "", password: "" });
+  const [currentUser, setCurrentUser] = useState({ email: "", password: "" });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -159,7 +157,7 @@ function App() {
     auth
       .signUp(newUser.email, newUser.name, newUser.password, newUser.avatar)
       .then((data) => {
-        setUserData(data.user);
+        setCurrentUser(data.user);
         setIsLoggedIn(true);
       })
       .then(() => {
@@ -180,7 +178,7 @@ function App() {
       .then((res) => {
         if (res.jwt) {
           setToken(res.jwt);
-          setUserData(res.user);
+          setCurrentUser(res.user);
           setIsLoggedIn(true);
           handleModalClose();
         }
@@ -198,7 +196,7 @@ function App() {
     }
     auth.getUserInfo(jwt).then(({ email, name, avatar }) => {
       setIsLoggedIn(true);
-      setUserData({ email, name, avatar });
+      setCurrentUser({ email, name, avatar });
     });
   }, []);
 
