@@ -25,6 +25,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       ...prevData,
       [name]: value,
     }));
+    validateField(name, value);
   };
 
   //validation

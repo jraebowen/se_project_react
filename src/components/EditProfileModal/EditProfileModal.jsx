@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import "./RegisterModal.css";
+import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
+const EditProfileModal = ({ isOpen, onClose }) => {
   const [data, setData] = useState({
-    username: "",
-    email: "",
-    password: "",
+    name: "",
     avatar: "",
   });
   const [error, setError] = useState("");
@@ -37,13 +35,6 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
     let error = "";
     if (!value) {
       error = "This is a required field";
-    } else if (input === "email" && (value.length < 2 || value.length > 30)) {
-      error = "This is a required field";
-    } else if (
-      input === "password" &&
-      (value.length < 2 || value.length > 30)
-    ) {
-      error = "This is a required field";
     } else if (input === "name" && (value.length < 2 || value.length > 30)) {
       error = "This is a required field";
     } else if (input === "avatar") {
@@ -59,12 +50,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
   };
 
   const validateForm = () => {
-    if (
-      error.email === "" &&
-      error.password === "" &&
-      error.name === "" &&
-      error.avatar === ""
-    ) {
+    if (error.name === "" && error.avatar === "") {
       return true;
     }
   };
@@ -81,41 +67,9 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       onValidation={validateForm}
-      title="Sign Up"
-      buttonText="Next"
+      title="Name*"
+      buttonText="Save Changes"
     >
-      <fieldset className="form__fieldset">
-        <label htmlFor="email-register-input" className="form__label">
-          Email*{" "}
-          {error.email && (
-            <span className="form__input-error">{error.email}</span>
-          )}
-        </label>
-        <input
-          type="email"
-          className="form__input"
-          id="email-register-input"
-          placeholder="Email"
-          onChange={handleChange}
-          value={data.email}
-        />
-      </fieldset>
-      <fieldset className="form__fieldset">
-        <label htmlFor="password-register-input" className="form__label">
-          Password*{" "}
-          {error.password && (
-            <span className="form__input-error">{error.password}</span>
-          )}
-        </label>
-        <input
-          type="password"
-          className="form__input"
-          id="password-register-input"
-          placeholder="Password"
-          onChange={handleChange}
-          value={data.password}
-        />
-      </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
           Name{" "}
@@ -148,15 +102,8 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
           value={data.avatar}
         />
       </fieldset>
-      <button
-        type="button"
-        className="form-modal__secondary-button"
-        // onClick={onSwitchToLogin}
-      >
-        or Sign Up
-      </button>
     </ModalWithForm>
   );
 };
 
-export default RegisterModal;
+export default EditProfileModal;

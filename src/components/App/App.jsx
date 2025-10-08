@@ -14,6 +14,7 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import LoginModal from "../LoginModal/LoginModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import ProtectedRoute from "../ProtectedRoute";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 //utils/api
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
@@ -73,6 +74,10 @@ function App() {
 
   const handleLoginModal = () => {
     setActiveModal("login-modal");
+  };
+
+  const handleEditProfileModal = () => {
+    setActiveModal("edit-profile-modal");
   };
 
   const toggleMobileMenu = () => {
@@ -281,6 +286,11 @@ function App() {
           />
           <LoginModal
             isOpen={activeModal === "login-modal"}
+            onClose={handleModalClose}
+            handleLogin={handleLogin}
+          />
+          <EditProfileModal
+            isOpen={activeModal === "edit-profile-modal"}
             onClose={handleModalClose}
             handleLogin={handleLogin}
           />
