@@ -286,13 +286,13 @@ function App() {
             isOpen={activeModal === "add-user"}
             onClose={handleModalClose}
             handleRegistration={handleRegistration}
-            onSignUp={handleAddNewUserModal}
+            onLogIn={handleLoginModal}
           />
           <LoginModal
             isOpen={activeModal === "login-modal"}
             onClose={handleModalClose}
             handleLogin={handleLogin}
-            onLogIn={handleLoginModal}
+            onSignUp={handleAddNewUserModal}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile-modal"}
