@@ -39,17 +39,19 @@ function Header({
           <Link to="/profile" className="header__name">
             <p>{currentUser.name}</p>
           </Link>
-          {currentUser.avatar ? (
-            <img
-              src={currentUser.avatar}
-              alt={currentUser.name.slice(0, 1)}
-              className="header__avatar"
-            />
-          ) : (
-            <div className="header__avatar header__avatar-placeholder">
-              {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
-            </div>
-          )}
+          <Link to="/profile" className="header__avatar">
+            {currentUser.avatar ? (
+              <img
+                src={currentUser.avatar}
+                alt={currentUser.name.slice(0, 1)}
+                className="header__avatar"
+              />
+            ) : (
+              <div className="header__avatar header__avatar-placeholder">
+                {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+              </div>
+            )}
+          </Link>
         </div>
         {!isMobileMenuOpened && (
           <button
