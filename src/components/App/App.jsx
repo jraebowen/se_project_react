@@ -33,7 +33,11 @@ function App() {
   });
 
   //login states
-  const [currentUser, setCurrentUser] = useState({ email: "", password: "" });
+  const [currentUser, setCurrentUser] = useState({
+    email: "",
+    name: "",
+    avatar: "",
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
@@ -226,7 +230,7 @@ function App() {
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider value={{ currentUser }}>
       <div className="page">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}

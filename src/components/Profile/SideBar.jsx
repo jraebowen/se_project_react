@@ -1,16 +1,25 @@
 import "./SideBar.css";
-import avatar from "../../assets/avatar.webp";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function SideBar() {
+  const { currentUser } = useContext(CurrentUserContext);
+
   return (
     <div className="sidebar">
       <div className="sidebar__profile-details">
-        <img
-          src={avatar}
-          alt="profile picture"
-          className="sidebar__profile-avatar"
-        />
-        <p className="sidebar__profile-name">Terrence Tegegne</p>
+        {currentUser.avatar ? (
+          <img
+            src={currentUser.avatar}
+            alt={currentUser.name.slice(0, 1)}
+            className="header__avatar"
+          />
+        ) : (
+          <div className="sidebar__profile-avatar sidebar__profile-avatar-placeholder">
+            {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+          </div>
+        )}
+        <p className="sidebar__profile-name">{currentUser.name}</p>
       </div>
       <div className="sidebar__profile-buttons">
         <button

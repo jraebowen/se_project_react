@@ -16,6 +16,14 @@
   margin-right: 16px;
 }
 
+.sidebar__profile-avatar-placeholder {
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: 20px;
+}
+
 .sidebar__profile-name {
   margin: 0;
   padding: 0;

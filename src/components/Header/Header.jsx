@@ -1,8 +1,9 @@
 import "./Header.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.webp";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Header({
   weatherData,
@@ -16,6 +17,8 @@ function Header({
   });
 
   const location = weatherData.location;
+
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <header className="header">
@@ -34,9 +37,19 @@ function Header({
             + Add Clothes
           </button>
           <Link to="/profile" className="header__name">
-            <p>Terrence Tegegne</p>{" "}
+            <p>{currentUser.name}</p>
           </Link>
-          <img src={avatar} alt="profile picture" className="header__avatar" />
+          {currentUser.avatar ? (
+            <img
+              src={currentUser.avatar}
+              alt={currentUser.name.slice(0, 1)}
+              className="header__avatar"
+            />
+          ) : (
+            <div className="header__avatar header__avatar-placeholder">
+              {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+            </div>
+          )}
         </div>
         {!isMobileMenuOpened && (
           <button
@@ -66,13 +79,19 @@ function Header({
             <div className="header__details-mobile">
               <Link to="/profile" className="header__name">
                 {" "}
-                <p>Terrence Tegegne</p>
+                <p>{currentUser.name}</p>
               </Link>
-              <img
-                src={avatar}
-                alt="profile picture"
-                className="header__avatar"
-              />
+              {currentUser.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name.slice(0, 1)}
+                  className="header__avatar"
+                />
+              ) : (
+                <div className="header__avatar header__avatar-placeholder">
+                  {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+                </div>
+              )}
             </div>
           </div>
         )}
