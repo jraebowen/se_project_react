@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./RegisterModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
+const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
   const [data, setData] = useState({
     username: "",
     email: "",
@@ -14,10 +14,12 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
   //clear results when opening modal
   useEffect(() => {
     if (isOpen) {
-      setEmail("");
-      setPassword("");
-      setName("");
-      setAvatar("");
+      setData({
+        username: "",
+        email: "",
+        password: "",
+        avatar: "",
+      });
       setError({});
     }
   }, [isOpen]);
@@ -83,6 +85,15 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
       onValidation={validateForm}
       title="Sign Up"
       buttonText="Next"
+      secondaryButton={
+        <button
+          type="button"
+          className="form-modal__secondary-button_registermodal"
+          onClick={onLogIn}
+        >
+          or Log In
+        </button>
+      }
     >
       <fieldset className="form__fieldset">
         <label htmlFor="email-register-input" className="form__label">
@@ -148,13 +159,6 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration }) => {
           value={data.avatar}
         />
       </fieldset>
-      <button
-        type="button"
-        className="form-modal__secondary-button"
-        // onClick={onSwitchToLogin}
-      >
-        or Sign Up
-      </button>
     </ModalWithForm>
   );
 };

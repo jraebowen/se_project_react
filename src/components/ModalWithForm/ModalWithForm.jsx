@@ -8,6 +8,7 @@ function ModalWithForm({
   onClose,
   onSubmit,
   onValidation,
+  secondaryButton,
 }) {
   return (
     <div className={`modal ${isOpen && "modal__is-opened"}`}>
@@ -28,6 +29,7 @@ function ModalWithForm({
           >
             {buttonText}
           </button>
+          {secondaryButton}
         </form>
       </div>
     </div>

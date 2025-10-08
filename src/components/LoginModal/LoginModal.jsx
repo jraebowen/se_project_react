@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./LoginModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onSignUp }) => {
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -12,8 +12,12 @@ const LoginModal = ({ isOpen, onClose }) => {
   //clear results when opening modal
   useEffect(() => {
     if (isOpen) {
-      setEmail("");
-      setPassword("");
+      setData({
+        username: "",
+        email: "",
+        password: "",
+        avatar: "",
+      });
       setError({});
     }
   }, [isOpen]);
@@ -70,10 +74,19 @@ const LoginModal = ({ isOpen, onClose }) => {
       onValidation={validateForm}
       title="Log In"
       buttonText="Log In"
+      secondaryButton={
+        <button
+          type="button"
+          className="form-modal__secondary-button_loginmodal"
+          onClick={onSignUp}
+        >
+          or Register
+        </button>
+      }
     >
       <fieldset className="form__fieldset">
         <label htmlFor="email-login-input" className="form__label">
-          Email*{" "}
+          Email{" "}
           {error.email && (
             <span className="form__input-error">{error.email}</span>
           )}
@@ -89,7 +102,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="password-login-input" className="form__label">
-          Password*{" "}
+          Password{" "}
           {error.password && (
             <span className="form__input-error">{error.password}</span>
           )}
@@ -103,13 +116,6 @@ const LoginModal = ({ isOpen, onClose }) => {
           value={data.password}
         />
       </fieldset>
-      <button
-        type="button"
-        className="form-modal__secondary-button"
-        // onClick={onSwitchToRegister}
-      >
-        or Register
-      </button>
     </ModalWithForm>
   );
 };

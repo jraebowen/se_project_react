@@ -163,4 +163,9 @@
   .header__button {
     padding: 24px 0 24px 0;
   }
+
+  .header__button_login {
+    padding: 0px;
+    margin-top: 40px;
+  }
 }

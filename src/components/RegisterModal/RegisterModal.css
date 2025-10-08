@@ -1,0 +1,11 @@
+.form-modal__secondary-button_registermodal {
+  border: none;
+  background-color: transparent;
+  color: rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.form-modal__secondary-button_registermodal:hover {
+  color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}

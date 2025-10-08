@@ -246,6 +246,9 @@ function App() {
               onAddCard={handleAddCard}
               toggleMobileMenu={toggleMobileMenu}
               isMobileMenuOpened={isMobileMenuOpened}
+              isLoggedIn={isLoggedIn}
+              onSignUp={handleAddNewUserModal}
+              onLogIn={handleLoginModal}
             />
 
             <Routes>
@@ -283,11 +286,13 @@ function App() {
             isOpen={activeModal === "add-user"}
             onClose={handleModalClose}
             handleRegistration={handleRegistration}
+            onSignUp={handleAddNewUserModal}
           />
           <LoginModal
             isOpen={activeModal === "login-modal"}
             onClose={handleModalClose}
             handleLogin={handleLogin}
+            onLogIn={handleLoginModal}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile-modal"}

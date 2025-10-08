@@ -10,6 +10,9 @@ function Header({
   onAddCard,
   toggleMobileMenu,
   isMobileMenuOpened,
+  isLoggedIn,
+  onSignUp,
+  onLogIn,
 }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -33,25 +36,51 @@ function Header({
         </div>
         <div className="header__container_profile-details header__container_profile-details_desktop">
           <ToggleSwitch />
-          <button type="button" className="header__button" onClick={onAddCard}>
-            + Add Clothes
-          </button>
-          <Link to="/profile" className="header__name">
-            <p>{currentUser.name}</p>
-          </Link>
-          <Link to="/profile" className="header__avatar">
-            {currentUser.avatar ? (
-              <img
-                src={currentUser.avatar}
-                alt={currentUser.name.slice(0, 1)}
-                className="header__avatar"
-              />
-            ) : (
-              <div className="header__avatar header__avatar-placeholder">
-                {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
-              </div>
-            )}
-          </Link>
+
+          {isLoggedIn ? (
+            <>
+              <button
+                type="button"
+                className="header__button"
+                onClick={onAddCard}
+              >
+                + Add Clothes
+              </button>
+              <Link to="/profile" className="header__name">
+                <p>{currentUser.name}</p>
+              </Link>
+              <Link to="/profile" className="header__avatar">
+                {currentUser.avatar ? (
+                  <img
+                    src={currentUser.avatar}
+                    alt={currentUser.name.slice(0, 1)}
+                    className="header__avatar"
+                  />
+                ) : (
+                  <div className="header__avatar header__avatar-placeholder">
+                    {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+                  </div>
+                )}
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                type="button"
+                className="header__button header__button_signup"
+                onClick={onSignUp}
+              >
+                Sign Up
+              </button>
+              <button
+                type="button"
+                className="header__button header__button_login"
+                onClick={onLogIn}
+              >
+                Log In
+              </button>
+            </>
+          )}
         </div>
         {!isMobileMenuOpened && (
           <button
@@ -68,33 +97,54 @@ function Header({
               className="profile-modal__close-button"
               onClick={toggleMobileMenu}
             />
-            <button
-              type="button"
-              className="header__button"
-              onClick={() => {
-                onAddCard();
-                toggleMobileMenu();
-              }}
-            >
-              + Add Clothes
-            </button>
-            <div className="header__details-mobile">
-              <Link to="/profile" className="header__name">
-                {" "}
-                <p>{currentUser.name}</p>
-              </Link>
-              {currentUser.avatar ? (
-                <img
-                  src={currentUser.avatar}
-                  alt={currentUser.name.slice(0, 1)}
-                  className="header__avatar"
-                />
-              ) : (
-                <div className="header__avatar header__avatar-placeholder">
-                  {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+            {isLoggedIn ? (
+              <>
+                <button
+                  type="button"
+                  className="header__button"
+                  onClick={() => {
+                    onAddCard();
+                    toggleMobileMenu();
+                  }}
+                >
+                  + Add Clothes
+                </button>
+                <div className="header__details-mobile">
+                  <Link to="/profile" className="header__name">
+                    {" "}
+                    <p>{currentUser.name}</p>
+                  </Link>
+                  {currentUser.avatar ? (
+                    <img
+                      src={currentUser.avatar}
+                      alt={currentUser.name.slice(0, 1)}
+                      className="header__avatar"
+                    />
+                  ) : (
+                    <div className="header__avatar header__avatar-placeholder">
+                      {currentUser.name?.slice(0, 1).toUpperCase() || "U"}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+              </>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  className="header__button header__button_signup"
+                  onClick={onSignUp}
+                >
+                  Sign Up
+                </button>
+                <button
+                  type="button"
+                  className="header__button header__button_login"
+                  onClick={onLogIn}
+                >
+                  Log In
+                </button>
+              </>
+            )}
           </div>
         )}
       </div>
