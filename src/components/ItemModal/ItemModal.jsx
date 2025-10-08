@@ -5,6 +5,8 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 function ItemModal({ activeModal, selectedCard, onClose, onDeleteClick }) {
   const { currentUser } = useContext(CurrentUserContext);
 
+  const isOwn = selectedCard.owner === currentUser._id;
+
   return (
     <div
       className={`item-modal ${
@@ -29,13 +31,15 @@ function ItemModal({ activeModal, selectedCard, onClose, onDeleteClick }) {
               Weather: {selectedCard.weather}
             </p>
           </div>
-          <button
-            type="button"
-            className="item-modal__delete-btn"
-            onClick={() => onDeleteClick(selectedCard)}
-          >
-            Delete Item
-          </button>
+          {isOwn && (
+            <button
+              type="button"
+              className="item-modal__delete-btn"
+              onClick={() => onDeleteClick(selectedCard)}
+            >
+              Delete Item
+            </button>
+          )}
         </div>
       </div>
     </div>
