@@ -73,6 +73,7 @@
   border-radius: 50%;
   display: flex;
   text-decoration: none;
+  object-fit: cover;
 }
 
 .header__avatar-placeholder {

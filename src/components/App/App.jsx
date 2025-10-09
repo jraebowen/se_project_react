@@ -165,9 +165,9 @@ function App() {
   //add new user
   const handleRegistration = (newUser) => {
     auth
-      .signUp(newUser.email, newUser.name, newUser.password, newUser.avatar)
-      .then((data) => {
-        setCurrentUser(data.user);
+      .signUp(newUser.name, newUser.avatar, newUser.email, newUser.password)
+      .then((user) => {
+        setCurrentUser(user);
         setIsLoggedIn(true);
       })
       .then(() => {
@@ -188,7 +188,7 @@ function App() {
       .then((res) => {
         if (res.jwt) {
           setToken(res.jwt);
-          setCurrentUser(res.user);
+          setCurrentUser(res);
           setIsLoggedIn(true);
           handleModalClose();
         }

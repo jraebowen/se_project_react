@@ -36,7 +36,7 @@ export function deleteItem({ itemId }, token) {
 }
 
 export function updateProfile({ name, avatar }, token) {
-  return fetch(`${baseUrl}/user/me`, {
+  return fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

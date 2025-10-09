@@ -5,9 +5,9 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
   const [data, setData] = useState({
     name: "",
+    avatar: "",
     email: "",
     password: "",
-    avatar: "",
   });
   const [error, setError] = useState("");
 
@@ -16,9 +16,9 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
     if (isOpen) {
       setData({
         name: "",
+        avatar: "",
         email: "",
         password: "",
-        avatar: "",
       });
       setError({});
     }
