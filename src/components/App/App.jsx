@@ -238,6 +238,7 @@ function App() {
     if (!token) {
       return;
     }
+    console.log(data);
     updateProfile(data, token)
       .then((data) => {
         setCurrentUser({
@@ -290,6 +291,7 @@ function App() {
                       handleCardClick={handleCardClick}
                       onAddCard={handleAddCard}
                       clothingItems={clothingItems}
+                      onEditProfile={handleEditProfileModal}
                     />
                   </ProtectedRoute>
                 }

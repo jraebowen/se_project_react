@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  gap: 16px;
 }
 
 .sidebar__profile-avatar {
@@ -30,18 +31,18 @@
 }
 
 .sidebar__profile-buttons {
-  padding-left: 73px;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar__profile-button {
-  color: rgba(0, 0, 0, 0.6);
-  font-weight: 500;
+  color: black;
+  font-weight: 700;
   text-align: left;
   border: none;
   background-color: transparent;
   transition: opacity 0.2s ease-in-out;
-  font-family: "Cabinet Grotesk Medium", Arial, Helvetica, sans-serif;
-  font-weight: 500;
   font-size: 18px;
   padding: 0;
 }
@@ -52,7 +53,7 @@
 }
 
 .sidebar__profile-edit {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 @media screen and (max-width: 755px) {
