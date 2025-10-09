@@ -64,7 +64,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
     if (
       error.email === "" &&
       error.password === "" &&
-      error.name === "" &&
+      error.username === "" &&
       error.avatar === ""
     ) {
       return true;
@@ -104,6 +104,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
         </label>
         <input
           type="email"
+          name="email"
           className="form__input"
           id="email-register-input"
           placeholder="Email"
@@ -120,6 +121,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
         </label>
         <input
           type="password"
+          name="password"
           className="form__input"
           id="password-register-input"
           placeholder="Password"
@@ -130,17 +132,18 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
           Name{" "}
-          {error.name && (
-            <span className="form__input-error">{error.name}</span>
+          {error.username && (
+            <span className="form__input-error">{error.username}</span>
           )}
         </label>
         <input
           type="text"
+          name="username"
           className="form__input"
           id="name-register-input"
           placeholder="Name"
           onChange={handleChange}
-          value={data.name}
+          value={data.username}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -152,6 +155,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
         </label>
         <input
           type="url"
+          name="avatar"
           className="form__input"
           id="avatar-register-input"
           placeholder="Avatar URL"

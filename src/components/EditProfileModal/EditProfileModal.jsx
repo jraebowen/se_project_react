@@ -4,7 +4,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
   const [data, setData] = useState({
-    name: "",
+    username: "",
     avatar: "",
   });
   const [error, setError] = useState("");
@@ -12,8 +12,10 @@ const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
   //clear results when opening modal
   useEffect(() => {
     if (isOpen) {
-      setName("");
-      setAvatar("");
+      setData({
+        username: "",
+        avatar: "",
+      });
       setError({});
     }
   }, [isOpen]);
@@ -48,7 +50,7 @@ const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
   };
 
   const validateForm = () => {
-    if (error.name === "" && error.avatar === "") {
+    if (error.username === "" && error.avatar === "") {
       return true;
     }
   };
@@ -71,17 +73,18 @@ const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
           Name{" "}
-          {error.name && (
-            <span className="form__input-error">{error.name}</span>
+          {error.username && (
+            <span className="form__input-error">{error.username}</span>
           )}
         </label>
         <input
           type="text"
+          name="username"
           className="form__input"
           id="name-register-input"
           placeholder="Name"
           onChange={handleChange}
-          value={data.name}
+          value={data.uesrname}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -93,6 +96,7 @@ const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
         </label>
         <input
           type="url"
+          name="avatar"
           className="form__input"
           id="avatar-register-input"
           placeholder="Avatar URL"

@@ -93,6 +93,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
         </label>
         <input
           type="email"
+          name="email"
           className="form__input"
           id="email-login-input"
           placeholder="Email"
@@ -109,6 +110,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
         </label>
         <input
           type="password"
+          name="password"
           className="form__input"
           id="password-login-input"
           placeholder="Password"
