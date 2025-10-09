@@ -38,6 +38,7 @@ function App() {
     email: "",
     name: "",
     avatar: "",
+    _id: "",
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -151,10 +152,8 @@ function App() {
       return;
     }
     addItem(data, token)
-      .then((data) => {
-        setClothingItems((prevItems) => [data, ...prevItems]);
-      })
-      .then(() => {
+      .then((newItem) => {
+        setClothingItems((prevItems) => [newItem, ...prevItems]);
         handleModalClose();
       })
       .catch((err) => {
@@ -186,10 +185,8 @@ function App() {
     auth
       .signIn(email, password)
       .then((res) => {
-        // res = { token: '...' }
         if (res.token) {
-          setToken(res.token); // save JWT
-          // fetch user info after login
+          setToken(res.token);
           return auth.getUserInfo(res.token);
         } else {
           throw new Error("No token returned");
@@ -211,9 +208,9 @@ function App() {
     if (!jwt) {
       return;
     }
-    auth.getUserInfo(jwt).then(({ email, name, avatar }) => {
+    auth.getUserInfo(jwt).then(({ email, name, avatar, _id }) => {
       setIsLoggedIn(true);
-      setCurrentUser({ email, name, avatar });
+      setCurrentUser({ email, name, avatar, _id });
     });
   }, []);
 

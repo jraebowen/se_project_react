@@ -1,6 +1,5 @@
 import "./AddItemModal.css";
 import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
@@ -70,7 +69,6 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       name,
       imageUrl,
       weather,
-      _id: uuidv4(),
     };
     onAddItem(newItem);
   };
