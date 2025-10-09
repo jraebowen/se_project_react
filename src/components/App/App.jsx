@@ -18,7 +18,7 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 //utils/api
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import { getItems, addItem, deleteItem, updateProfile } from "../../utils/api";
 import * as auth from "../../utils/auth";
 import { setToken, getToken } from "../../utils/token";
 //contexts
@@ -52,6 +52,8 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+
+  const token = localStorage.getItem("jwt");
 
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
@@ -145,7 +147,6 @@ function App() {
 
   //add new cards
   const handleAddItemSubmit = (data) => {
-    const token = localStorage.getItem("jwt");
     if (!token) {
       return;
     }
@@ -216,7 +217,6 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-    const token = localStorage.getItem("jwt");
     if (!token) {
       return;
     }
@@ -231,6 +231,26 @@ function App() {
       })
       .catch((err) => {
         console.error("Failed to delete card: ", err);
+      });
+  };
+
+  const handleUpdateProfile = (data) => {
+    if (!token) {
+      return;
+    }
+    updateProfile(data, token)
+      .then((data) => {
+        setCurrentUser({
+          name: data.name,
+          avatar: data.avatar,
+          email: data.email,
+        });
+      })
+      .then(() => {
+        handleModalClose();
+      })
+      .catch((err) => {
+        console.error("Could not update profile: ", err);
       });
   };
 
@@ -297,7 +317,7 @@ function App() {
           <EditProfileModal
             isOpen={activeModal === "edit-profile-modal"}
             onClose={handleModalClose}
-            handleLogin={handleLogin}
+            handleEditProfileModal={handleEditProfileModal}
           />
           <ItemModal
             activeModal={activeModal}

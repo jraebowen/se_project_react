@@ -34,3 +34,17 @@ export function deleteItem({ itemId }, token) {
     },
   }).then(checkResponse);
 }
+
+export function updateProfile({ name, avatar }, token) {
+  return fetch(`${baseUrl}/user/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      name,
+      avatar,
+    }),
+  }).then(checkResponse);
+}
