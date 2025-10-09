@@ -13,7 +13,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
   useEffect(() => {
     if (isOpen) {
       setData({
-        username: "",
+        name: "",
         email: "",
         password: "",
         avatar: "",

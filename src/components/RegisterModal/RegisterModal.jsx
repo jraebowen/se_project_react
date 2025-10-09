@@ -4,7 +4,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
   const [data, setData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     avatar: "",
@@ -15,7 +15,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
   useEffect(() => {
     if (isOpen) {
       setData({
-        username: "",
+        name: "",
         email: "",
         password: "",
         avatar: "",
@@ -64,7 +64,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
     if (
       error.email === "" &&
       error.password === "" &&
-      error.username === "" &&
+      error.name === "" &&
       error.avatar === ""
     ) {
       return true;
@@ -132,18 +132,18 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
           Name{" "}
-          {error.username && (
-            <span className="form__input-error">{error.username}</span>
+          {error.name && (
+            <span className="form__input-error">{error.name}</span>
           )}
         </label>
         <input
           type="text"
-          name="username"
+          name="name"
           className="form__input"
           id="name-register-input"
           placeholder="Name"
           onChange={handleChange}
-          value={data.username}
+          value={data.name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
