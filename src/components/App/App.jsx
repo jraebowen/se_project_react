@@ -186,12 +186,19 @@ function App() {
     auth
       .signIn(email, password)
       .then((res) => {
-        if (res.jwt) {
-          setToken(res.jwt);
-          setCurrentUser(res);
-          setIsLoggedIn(true);
-          handleModalClose();
+        // res = { token: '...' }
+        if (res.token) {
+          setToken(res.token); // save JWT
+          // fetch user info after login
+          return auth.getUserInfo(res.token);
+        } else {
+          throw new Error("No token returned");
         }
+      })
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsLoggedIn(true);
+        handleModalClose();
       })
       .catch((err) => {
         console.error("Failed to log in", err);
@@ -238,7 +245,6 @@ function App() {
     if (!token) {
       return;
     }
-    console.log(data);
     updateProfile(data, token)
       .then((data) => {
         setCurrentUser({
@@ -319,7 +325,7 @@ function App() {
           <EditProfileModal
             isOpen={activeModal === "edit-profile-modal"}
             onClose={handleModalClose}
-            handleEditProfileModal={handleEditProfileModal}
+            onUpdateProfile={handleUpdateProfile}
           />
           <ItemModal
             activeModal={activeModal}

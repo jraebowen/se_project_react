@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
+const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
   const [data, setData] = useState({
     name: "",
     avatar: "",
@@ -58,7 +58,7 @@ const EditProfileModal = ({ isOpen, onClose, handleEditProfileModal }) => {
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleEditProfileModal(data);
+    onUpdateProfile(data);
   };
 
   return (
