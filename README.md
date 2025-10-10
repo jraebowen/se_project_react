@@ -10,7 +10,7 @@
 
 **Intro**
 
-This project is a webpage titled What to Wear, showcasing current weather for a determined location and appropriate clothing based on that weather. It is based off of Figma briefs from the TripleTen team and focuses on executing with React and Vite.
+This project is a webpage titled What to Wear, showcasing current weather for a determined location and appropriate clothing based on that weather. It is based off of Figma briefs from the TripleTen team and focuses on executing with React and Vite. It is connected to a backend that leverages express and mongodb.
 
 **Functionality**
 
@@ -34,13 +34,15 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
   - Connected to: https://openweathermap.org/
 - Backend Repository
   - https://github.com/jraebowen/se_project_express
+  - This backend handles user authentication and authorization, allowing users to sign up, sign in, and stay logged in.
+  - It manages user data and card information, ensuring each user can access and modify only their own content.
 
 **Figma**
 
-[Link to the project on Figma](https://www.figma.com/design/F03bTb81Pw8IDPj5Y9rc5i/Sprint-10-Project--WTWR?node-id=311-433&p=f&t=xgSFxUeLZLB0EYNs-0)
+[Link to the project on Figma](https://www.figma.com/file/bfVOvqlLmoKZ5lpro8WWBe/Sprint-14_-WTWR?t=3hvVWRz9LUFsxyNn-6)
 
 **Assets**
-[Link to the project on Figma](../se_project_react/src/assets/) and (https://www.figma.com/design/dQLJwEKasIdspciJAJrCaf/Sprint-11_-WTWR?node-id=311-433)
+[Link to the assets](../se_project_react/src/assets/)
 
 **Screenshots of Responsive Design**
 
