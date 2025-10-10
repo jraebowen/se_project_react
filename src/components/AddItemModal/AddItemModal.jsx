@@ -1,84 +1,46 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import useForm from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
-  const [name, setName] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [weather, setWeather] = useState("");
-  const [error, setError] = useState({
-    name: "",
-    imageUrl: "",
-    weather: "",
-  });
-
-  //clear results when opening modal
-  useEffect(() => {
-    if (isOpen) {
-      setName("");
-      setImageUrl("");
-      setWeather("");
-      setError({
-        name: "",
-        imageUrl: "",
-        weather: "",
-      });
-    }
-  }, [isOpen]);
-
-  //form input functions
-  const handleNameChange = (e) => {
-    const { value } = e.target;
-    setName(value);
-    validateField("name", value);
-  };
-
-  const handleImageUpload = (e) => {
-    const { value } = e.target;
-    setImageUrl(value);
-    validateField("imageUrl", value);
-  };
-
-  const handleWeatherSelection = (e) => {
-    const { value } = e.target;
-    setWeather(value);
-    validateField("weather", value);
-  };
+  const initialValues = useMemo(
+    () => ({
+      name: "",
+      imageUrl: "",
+      weather: "",
+    }),
+    []
+  );
 
   //validation
-  const validateField = (input, value) => {
-    let error = "";
+  const validate = (input, value) => {
     if (!value) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (input === "name" && (value.length < 2 || value.length > 30)) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (input === "imageUrl") {
       const url = /^(ftp|http|https):\/\/[^ "]+$/;
       if (!url.test(value)) {
-        error = "Enter a valid image URL";
+        return "Enter a valid image URL";
       }
     }
-    setError((prev) => ({
-      ...prev,
-      [input]: error,
-    }));
+    return "";
   };
 
-  const validateForm = () => {
-    if (error.name === "" && error.imageUrl === "" && error.weather === "") {
-      return true;
-    }
-  };
+  const { values, errors, handleChange, resetForm, isValid } = useForm(
+    initialValues,
+    validate
+  );
+
+  //clear results when opening modal
+  useEffect(() => {
+    if (isOpen) resetForm();
+  }, [isOpen, resetForm]);
 
   //form submission function
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const newItem = {
-      name,
-      imageUrl,
-      weather,
-    };
-    console.log("Form submitted with:", newItem);
-    onAddItem(newItem);
+    onAddItem(values);
   };
 
   return (
@@ -86,47 +48,49 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleFormSubmit}
-      onValidation={validateForm}
+      onValidation={() => isValid}
       title="New garment"
       buttonText="Add garment"
     >
       <fieldset className="form__fieldset">
         <label htmlFor="name-input" className="form__label">
           Name{" "}
-          {error.name && (
-            <span className="form__input-error">{error.name}</span>
+          {errors.name && (
+            <span className="form__input-error">{errors.name}</span>
           )}
         </label>
         <input
           type="text"
           className="form__input"
           id="name-input"
+          name="name"
           placeholder="Name"
-          onChange={handleNameChange}
-          value={name}
+          onChange={handleChange}
+          value={values.name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="image-input" className="form__label">
           Image{" "}
-          {error.imageUrl && (
-            <span className="form__input-error">{error.imageUrl}</span>
+          {errors.imageUrl && (
+            <span className="form__input-error">{errors.imageUrl}</span>
           )}
         </label>
         <input
           type="url"
           className="form__input"
           id="image-input"
+          name="imageUrl"
           placeholder="Image URL"
-          onChange={handleImageUpload}
-          value={imageUrl}
+          onChange={handleChange}
+          value={values.imageUrl}
         />
       </fieldset>
       <fieldset className="form__fieldset form__fieldset_radio">
         <legend className="form__legend">
           Select the weather type:{" "}
-          {error.weather && (
-            <span className="form__input-error">{error.weather}</span>
+          {errors.weather && (
+            <span className="form__input-error">{errors.weather}</span>
           )}
         </legend>
 
@@ -137,8 +101,8 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
             id="hot"
             value="hot"
             name="weather"
-            onChange={handleWeatherSelection}
-            checked={weather === "hot"}
+            onChange={handleChange}
+            checked={values.weather === "hot"}
           />
           <span className="form__label-text">Hot</span>
         </label>
@@ -149,8 +113,8 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
             id="warm"
             value="warm"
             name="weather"
-            onChange={handleWeatherSelection}
-            checked={weather === "warm"}
+            onChange={handleChange}
+            checked={values.weather === "warm"}
           />
           <span className="form__label-text">Warm</span>
         </label>
@@ -161,8 +125,8 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
             id="cold"
             value="cold"
             name="weather"
-            onChange={handleWeatherSelection}
-            checked={weather === "cold"}
+            onChange={handleChange}
+            checked={values.weather === "cold"}
           />
           <span className="form__label-text">Cold</span>
         </label>
