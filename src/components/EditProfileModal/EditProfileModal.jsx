@@ -1,8 +1,10 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import useForm from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
+  const { currentUser } = useContext(CurrentUserContext);
   const initialValues = useMemo(
     () => ({
       name: "",
@@ -32,7 +34,8 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
 
   //clear results when opening modal
   useEffect(() => {
-    if (isOpen) resetForm();
+    if (isOpen)
+      resetForm({ name: currentUser.name, avatar: currentUser.avatar });
   }, [isOpen, resetForm]);
 
   //form submission

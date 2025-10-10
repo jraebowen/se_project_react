@@ -51,6 +51,8 @@ function App() {
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
+  const [token, setTokenState] = useState(getToken());
+
   //card rendering states
   const [clothingItems, setClothingItems] = useState([]);
 
@@ -60,8 +62,6 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
 
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
-
-  const token = localStorage.getItem("jwt");
 
   const handleToggleSwitchChange = () => {
     currentTemperatureUnit === "F"
@@ -155,9 +155,6 @@ function App() {
 
   //add new cards
   const handleAddItemSubmit = (data) => {
-    if (!token) {
-      return;
-    }
     addItem(data, token)
       .then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
@@ -175,9 +172,6 @@ function App() {
   };
 
   const handleCardDelete = (card) => {
-    if (!token) {
-      return;
-    }
     deleteItem({ itemId: card._id }, token)
       .then(() => {
         setClothingItems((prevItems) =>
@@ -223,11 +217,21 @@ function App() {
   const handleRegistration = (newUser) => {
     auth
       .signUp(newUser.name, newUser.avatar, newUser.email, newUser.password)
-      .then((user) => {
-        setCurrentUser(user);
-        setIsLoggedIn(true);
-      })
       .then(() => {
+        return auth.signIn(newUser.email, newUser.password);
+      })
+      .then((res) => {
+        if (res.token) {
+          setToken(res.token);
+          setTokenState(res.token);
+          return auth.getUserInfo(res.token);
+        } else {
+          throw new Error("No token returned after signup");
+        }
+      })
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsLoggedIn(true);
         handleModalClose();
       })
       .catch((err) => {
@@ -245,6 +249,7 @@ function App() {
       .then((res) => {
         if (res.token) {
           setToken(res.token);
+          setTokenState(res.token);
           return auth.getUserInfo(res.token);
         } else {
           throw new Error("No token returned");
@@ -263,6 +268,7 @@ function App() {
   //logout functionality
   const handleLogout = () => {
     removeToken();
+    setTokenState(null);
     setIsLoggedIn(false);
   };
 
@@ -272,6 +278,7 @@ function App() {
     if (!jwt) {
       return;
     }
+    setTokenState(jwt);
     auth.getUserInfo(jwt).then(({ email, name, avatar, _id }) => {
       setIsLoggedIn(true);
       setCurrentUser({ email, name, avatar, _id });
