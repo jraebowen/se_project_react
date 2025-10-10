@@ -27,9 +27,11 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
     return "";
   };
 
+  const requiredFields = ["name", "imageUrl", "weather"];
   const { values, errors, handleChange, resetForm, isValid } = useForm(
     initialValues,
-    validate
+    validate,
+    requiredFields
   );
 
   //clear results when opening modal

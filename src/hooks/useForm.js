@@ -1,6 +1,10 @@
 import { useState, useCallback } from "react";
 
-export default function useForm(initialValues = {}, validate) {
+export default function useForm(
+  initialValues = {},
+  validate,
+  requiredFields = []
+) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
 
@@ -27,7 +31,7 @@ export default function useForm(initialValues = {}, validate) {
   );
   const isValid =
     Object.values(errors).every((err) => !err) &&
-    Object.values(values).every((val) => val !== "");
+    requiredFields.every((field) => values[field] && values[field] !== "");
 
   return {
     values,

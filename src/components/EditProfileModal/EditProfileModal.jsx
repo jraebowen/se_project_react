@@ -1,71 +1,44 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import useForm from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
-  const [data, setData] = useState({
-    name: "",
-    avatar: "",
-  });
-  const [error, setError] = useState({
-    name: "",
-    avatar: "",
-  });
-
-  //clear results when opening modal
-  useEffect(() => {
-    if (isOpen) {
-      setData({
-        name: "",
-        avatar: "",
-      });
-      setError({ name: "", avatar: "" });
-    }
-  }, [isOpen]);
-
-  //form input functions
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    validateField(name, value);
-  };
+  const initialValues = useMemo(
+    () => ({
+      name: "",
+      avatar: "",
+    }),
+    []
+  );
 
   //validation
-  const validateField = (input, value) => {
-    let error = "";
+  const validate = (input, value) => {
     if (input === "name" && (value.length < 2 || value.length > 30)) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (input === "avatar") {
       const url = /^(ftp|http|https):\/\/[^ "]+$/;
       if (value !== "" && !url.test(value)) {
-        error = "Enter a valid image URL";
+        return "Enter a valid image URL";
       }
     }
-    setError((prev) => ({
-      ...prev,
-      [input]: error,
-    }));
+    return "";
   };
+  const requiredFields = ["name"];
+  const { values, errors, handleChange, resetForm, isValid } = useForm(
+    initialValues,
+    validate,
+    requiredFields
+  );
 
-  const validateForm = () => {
-    if (error.name === "" && error.avatar === "") {
-      return true;
-    }
-  };
+  //clear results when opening modal
+  useEffect(() => {
+    if (isOpen) resetForm();
+  }, [isOpen, resetForm]);
 
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedData = {
-      name: data.name,
-    };
-    // Only include avatar if it's a valid URL and not empty
-    if (data.avatar.trim() !== "") {
-      updatedData.avatar = data.avatar;
-    }
-    onUpdateProfile(updatedData);
+    onUpdateProfile(values);
   };
 
   return (
@@ -73,42 +46,42 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      onValidation={validateForm}
+      onValidation={() => isValid}
       title="Change Profile Data"
       buttonText="Save Changes"
     >
       <fieldset className="form__fieldset">
-        <label htmlFor="name-register-input" className="form__label">
+        <label htmlFor="name-edit-input" className="form__label">
           Name*{" "}
-          {error.name && (
-            <span className="form__input-error">{error.name}</span>
+          {errors.name && (
+            <span className="form__input-error">{errors.name}</span>
           )}
         </label>
         <input
           type="text"
           name="name"
           className="form__input"
-          id="name-register-input"
+          id="name-edit-input"
           placeholder="Name"
           onChange={handleChange}
-          value={data.name}
+          value={values.name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
-        <label htmlFor="avatar-register-input" className="form__label">
+        <label htmlFor="avatar-edit-input" className="form__label">
           Avatar{" "}
-          {error.avatar && (
-            <span className="form__input-error">{error.avatar}</span>
+          {errors.avatar && (
+            <span className="form__input-error">{errors.avatar}</span>
           )}
         </label>
         <input
           type="url"
           name="avatar"
           className="form__input"
-          id="avatar-register-input"
+          id="avatar-edit-input"
           placeholder="Avatar URL"
           onChange={handleChange}
-          value={data.avatar}
+          value={values.avatar}
         />
       </fieldset>
     </ModalWithForm>

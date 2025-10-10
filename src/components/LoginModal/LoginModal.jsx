@@ -1,68 +1,48 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import "./LoginModal.css";
+import useForm from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState({ email: "", password: "" });
-
-  //clear results when opening modal
-  useEffect(() => {
-    if (isOpen) {
-      setData({
-        email: "",
-        password: "",
-      });
-      setError({
-        email: "",
-        password: "",
-      });
-    }
-  }, [isOpen]);
-
-  //form input functions
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    validateField(name, value);
-  };
+  const initialValues = useMemo(
+    () => ({
+      email: "",
+      password: "",
+    }),
+    []
+  );
 
   //validation
-  const validateField = (input, value) => {
-    let error = "";
+  const validate = (input, value) => {
     if (!value) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (input === "email" && (value.length < 2 || value.length > 30)) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (
       input === "password" &&
       (value.length < 2 || value.length > 30)
     ) {
-      error = "This is a required field";
+      return "This is a required field";
     }
-
-    setError((prev) => ({
-      ...prev,
-      [input]: error,
-    }));
+    return "";
   };
 
-  const validateForm = () => {
-    if (error.email === "" && error.password === "") {
-      return true;
-    }
-  };
+  const requiredFields = ["email", "password"];
+  const { values, errors, handleChange, resetForm, isValid } = useForm(
+    initialValues,
+    validate,
+    requiredFields
+  );
+
+  //clear results when opening modal
+  useEffect(() => {
+    if (isOpen) resetForm();
+  }, [isOpen, resetForm]);
 
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleLogin(data);
+    handleLogin(values);
   };
 
   return (
@@ -70,7 +50,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      onValidation={validateForm}
+      onValidation={() => isValid}
       title="Log In"
       buttonText="Log In"
       secondaryButton={
@@ -86,8 +66,8 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
       <fieldset className="form__fieldset">
         <label htmlFor="email-login-input" className="form__label">
           Email{" "}
-          {error.email && (
-            <span className="form__input-error">{error.email}</span>
+          {errors.email && (
+            <span className="form__input-error">{errors.email}</span>
           )}
         </label>
         <input
@@ -97,14 +77,14 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
           id="email-login-input"
           placeholder="Email"
           onChange={handleChange}
-          value={data.email}
+          value={values.email}
         />
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="password-login-input" className="form__label">
           Password{" "}
-          {error.password && (
-            <span className="form__input-error">{error.password}</span>
+          {errors.password && (
+            <span className="form__input-error">{errors.password}</span>
           )}
         </label>
         <input
@@ -114,7 +94,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
           id="password-login-input"
           placeholder="Password"
           onChange={handleChange}
-          value={data.password}
+          value={values.password}
         />
       </fieldset>
     </ModalWithForm>

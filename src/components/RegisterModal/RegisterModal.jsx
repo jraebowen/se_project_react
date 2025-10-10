@@ -1,92 +1,55 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import "./RegisterModal.css";
+import useForm from "../../hooks/useForm";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
-  const [data, setData] = useState({
-    name: "",
-    avatar: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState({
-    name: "",
-    avatar: "",
-    email: "",
-    password: "",
-  });
-
-  //clear results when opening modal
-  useEffect(() => {
-    if (isOpen) {
-      setData({
-        name: "",
-        avatar: "",
-        email: "",
-        password: "",
-      });
-      setError({
-        name: "",
-        avatar: "",
-        email: "",
-        password: "",
-      });
-    }
-  }, [isOpen]);
-
-  //form input functions
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-    validateField(name, value);
-  };
+  const initialValues = useMemo(
+    () => ({
+      name: "",
+      avatar: "",
+      email: "",
+      password: "",
+    }),
+    []
+  );
 
   //validation
-  const validateField = (input, value) => {
-    let error = "";
+  const validate = (input, value) => {
     if (input === "email" && (value.length < 2 || value.length > 30)) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (
       input === "password" &&
       (value.length < 2 || value.length > 30)
     ) {
-      error = "This is a required field";
+      return "This is a required field";
     } else if (input === "name" && (value.length < 2 || value.length > 30)) {
-      error = "Enter a valid name";
+      return "Enter a valid name";
     } else if (input === "avatar") {
       const url = /^(ftp|http|https):\/\/[^ "]+$/;
       if (value !== "" && !url.test(value)) {
-        error = "Enter a valid image URL";
+        return "Enter a valid image URL";
       }
     }
-    setError((prev) => ({
-      ...prev,
-      [input]: error,
-    }));
+    return "";
   };
 
-  const validateForm = () => {
-    if (
-      error.email === "" &&
-      error.password === "" &&
-      error.name === "" &&
-      (data.avatar === "" || error.avatar === "")
-    ) {
-      return true;
-    }
-  };
+  const requiredFields = ["name", "email", "password"];
+  const { values, errors, handleChange, resetForm, isValid } = useForm(
+    initialValues,
+    validate,
+    requiredFields
+  );
+
+  //clear results when opening modal
+  useEffect(() => {
+    if (isOpen) resetForm();
+  }, [isOpen, resetForm]);
 
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedData = { ...data };
-    if (updatedData.avatar.trim() === "") {
-      delete updatedData.avatar; // don't send empty string
-    }
-    handleRegistration(updatedData);
+    handleRegistration(values);
   };
 
   return (
@@ -94,7 +57,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      onValidation={validateForm}
+      onValidation={() => isValid}
       title="Sign Up"
       buttonText="Next"
       secondaryButton={
@@ -110,8 +73,8 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       <fieldset className="form__fieldset">
         <label htmlFor="email-register-input" className="form__label">
           Email*{" "}
-          {error.email && (
-            <span className="form__input-error">{error.email}</span>
+          {errors.email && (
+            <span className="form__input-error">{errors.email}</span>
           )}
         </label>
         <input
@@ -121,14 +84,14 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="email-register-input"
           placeholder="Email"
           onChange={handleChange}
-          value={data.email}
+          value={values.email}
         />
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="password-register-input" className="form__label">
           Password*{" "}
-          {error.password && (
-            <span className="form__input-error">{error.password}</span>
+          {errors.password && (
+            <span className="form__input-error">{errors.password}</span>
           )}
         </label>
         <input
@@ -138,14 +101,14 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="password-register-input"
           placeholder="Password"
           onChange={handleChange}
-          value={data.password}
+          value={values.password}
         />
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
           Name*{" "}
-          {error.name && (
-            <span className="form__input-error">{error.name}</span>
+          {errors.name && (
+            <span className="form__input-error">{errors.name}</span>
           )}
         </label>
         <input
@@ -155,14 +118,14 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="name-register-input"
           placeholder="Name"
           onChange={handleChange}
-          value={data.name}
+          value={values.name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="avatar-register-input" className="form__label">
           Avatar{" "}
-          {error.avatar && (
-            <span className="form__input-error">{error.avatar}</span>
+          {errors.avatar && (
+            <span className="form__input-error">{errors.avatar}</span>
           )}
         </label>
         <input
@@ -172,7 +135,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="avatar-register-input"
           placeholder="Avatar URL"
           onChange={handleChange}
-          value={data.avatar}
+          value={values.avatar}
         />
       </fieldset>
     </ModalWithForm>
