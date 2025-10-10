@@ -67,12 +67,12 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       onValidation={validateForm}
-      title="Name*"
+      title="Change Profile Data"
       buttonText="Save Changes"
     >
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
-          Name{" "}
+          Name*{" "}
           {error.name && (
             <span className="form__input-error">{error.name}</span>
           )}

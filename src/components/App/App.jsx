@@ -27,7 +27,7 @@ import {
   removeCardLike,
 } from "../../utils/api";
 import * as auth from "../../utils/auth";
-import { setToken, getToken } from "../../utils/token";
+import { setToken, getToken, removeToken } from "../../utils/token";
 //contexts
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
@@ -197,7 +197,6 @@ function App() {
     !isLiked
       ? addCardLike(_id, token)
           .then((updatedCard) => {
-            console.log("Updated card from addCardLike:", updatedCard);
             setClothingItems((cards) =>
               cards.map((item) =>
                 String(item._id) === String(updatedCard._id)
@@ -209,7 +208,6 @@ function App() {
           .catch((err) => console.log(err))
       : removeCardLike(_id, token)
           .then((updatedCard) => {
-            console.log("Updated card from removeCardLike:", updatedCard);
             setClothingItems((cards) =>
               cards.map((item) =>
                 String(item._id) === String(updatedCard._id)
@@ -260,6 +258,12 @@ function App() {
       .catch((err) => {
         console.error("Failed to log in", err);
       });
+  };
+
+  //logout functionality
+  const handleLogout = () => {
+    removeToken();
+    setIsLoggedIn(false);
   };
 
   //checking token
@@ -334,6 +338,7 @@ function App() {
                       clothingItems={clothingItems}
                       onEditProfile={handleEditProfileModal}
                       onCardLike={handleCardLike}
+                      onLogout={handleLogout}
                     />
                   </ProtectedRoute>
                 }
