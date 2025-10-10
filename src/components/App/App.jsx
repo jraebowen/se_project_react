@@ -280,20 +280,23 @@ function App() {
 
   //update profile functionality
   const handleUpdateProfile = (data) => {
-    if (!token) {
-      return;
-    }
-    updateProfile(data, token)
-      .then((data) => {
-        setCurrentUser({
-          name: data.name,
-          avatar: data.avatar,
-          email: data.email,
-        });
+    if (!token) return;
+
+    const updatedData = {
+      name: data.name || currentUser.name,
+      avatar: data.avatar ? data.avatar : currentUser.avatar,
+    };
+
+    updateProfile(updatedData, token)
+      .then((updatedUser) => {
+        setCurrentUser((prevUser) => ({
+          ...prevUser,
+          name: updatedUser.name,
+          avatar: updatedUser.avatar,
+          email: updatedUser.email, // keep email too
+        }));
       })
-      .then(() => {
-        handleModalClose();
-      })
+      .then(() => handleModalClose())
       .catch((err) => {
         console.error("Could not update profile: ", err);
       });

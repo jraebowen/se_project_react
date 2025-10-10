@@ -7,7 +7,10 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
     name: "",
     avatar: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    name: "",
+    avatar: "",
+  });
 
   //clear results when opening modal
   useEffect(() => {
@@ -16,7 +19,7 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
         name: "",
         avatar: "",
       });
-      setError({});
+      setError({ name: "", avatar: "" });
     }
   }, [isOpen]);
 
@@ -33,13 +36,11 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
   //validation
   const validateField = (input, value) => {
     let error = "";
-    if (!value) {
-      error = "This is a required field";
-    } else if (input === "name" && (value.length < 2 || value.length > 30)) {
+    if (input === "name" && (value.length < 2 || value.length > 30)) {
       error = "This is a required field";
     } else if (input === "avatar") {
       const url = /^(ftp|http|https):\/\/[^ "]+$/;
-      if (!url.test(value)) {
+      if (value !== "" && !url.test(value)) {
         error = "Enter a valid image URL";
       }
     }
@@ -58,7 +59,15 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdateProfile(data);
+    const updatedData = {
+      name: data.name,
+    };
+
+    // Only include avatar if it's a valid URL and not empty
+    if (data.avatar.trim() !== "") {
+      updatedData.avatar = data.avatar;
+    }
+    onUpdateProfile(updatedData);
   };
 
   return (
@@ -84,7 +93,7 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
           id="name-register-input"
           placeholder="Name"
           onChange={handleChange}
-          value={data.uesrname}
+          value={data.name}
         />
       </fieldset>
       <fieldset className="form__fieldset">
