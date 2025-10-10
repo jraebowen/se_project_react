@@ -5,7 +5,11 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
   const [name, setName] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [weather, setWeather] = useState("");
-  const [error, setError] = useState({});
+  const [error, setError] = useState({
+    name: "",
+    imageUrl: "",
+    weather: "",
+  });
 
   //clear results when opening modal
   useEffect(() => {
@@ -13,7 +17,11 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       setName("");
       setImageUrl("");
       setWeather("");
-      setError({});
+      setError({
+        name: "",
+        imageUrl: "",
+        weather: "",
+      });
     }
   }, [isOpen]);
 
@@ -69,6 +77,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       imageUrl,
       weather,
     };
+    console.log("Form submitted with:", newItem);
     onAddItem(newItem);
   };
 
