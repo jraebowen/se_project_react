@@ -2,7 +2,7 @@ import "./ItemCard.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function ItemCard({ item, handleCardClick, onCardLike }) {
+function ItemCard({ item, handleCardClick, onCardLike, isLoggedIn }) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const onCardClick = () => {
@@ -26,11 +26,15 @@ function ItemCard({ item, handleCardClick, onCardLike }) {
     <li className="item-card">
       <div className="item-card__header">
         <h2 className="item-card__title">{item.name}</h2>
-        <button
-          type="button"
-          className={itemLikeButtonClassName}
-          onClick={handleLike}
-        ></button>
+        {isLoggedIn ? (
+          <button
+            type="button"
+            className={itemLikeButtonClassName}
+            onClick={handleLike}
+          ></button>
+        ) : (
+          ""
+        )}
       </div>
       <img
         src={item.imageUrl}
