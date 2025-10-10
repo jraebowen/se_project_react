@@ -7,7 +7,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState({ email: "", password: "" });
 
   //clear results when opening modal
   useEffect(() => {
@@ -16,7 +16,10 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
         email: "",
         password: "",
       });
-      setError({});
+      setError({
+        email: "",
+        password: "",
+      });
     }
   }, [isOpen]);
 
@@ -41,8 +44,6 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
       input === "password" &&
       (value.length < 2 || value.length > 30)
     ) {
-      error = "This is a required field";
-    } else if (input === "name" && (value.length < 2 || value.length > 30)) {
       error = "This is a required field";
     }
 

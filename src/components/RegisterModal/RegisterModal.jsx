@@ -9,7 +9,12 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState({
+    name: "",
+    avatar: "",
+    email: "",
+    password: "",
+  });
 
   //clear results when opening modal
   useEffect(() => {
@@ -20,7 +25,12 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
         email: "",
         password: "",
       });
-      setError({});
+      setError({
+        name: "",
+        avatar: "",
+        email: "",
+        password: "",
+      });
     }
   }, [isOpen]);
 
@@ -37,9 +47,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
   //validation
   const validateField = (input, value) => {
     let error = "";
-    if (!value) {
-      error = "This is a required field";
-    } else if (input === "email" && (value.length < 2 || value.length > 30)) {
+    if (input === "email" && (value.length < 2 || value.length > 30)) {
       error = "This is a required field";
     } else if (
       input === "password" &&
@@ -47,10 +55,10 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
     ) {
       error = "This is a required field";
     } else if (input === "name" && (value.length < 2 || value.length > 30)) {
-      error = "This is a required field";
+      error = "Enter a valid name";
     } else if (input === "avatar") {
       const url = /^(ftp|http|https):\/\/[^ "]+$/;
-      if (!url.test(value)) {
+      if (value !== "" && !url.test(value)) {
         error = "Enter a valid image URL";
       }
     }
@@ -131,7 +139,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="name-register-input" className="form__label">
-          Name{" "}
+          Name*{" "}
           {error.name && (
             <span className="form__input-error">{error.name}</span>
           )}
