@@ -48,3 +48,23 @@ export function updateProfile({ name, avatar }, token) {
     }),
   }).then(checkResponse);
 }
+
+export function addCardLike(_id, token) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(checkResponse);
+}
+
+export function removeCardLike(_id, token) {
+  return fetch(`${baseUrl}/items/${_id}/likes`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  }).then(checkResponse);
+}

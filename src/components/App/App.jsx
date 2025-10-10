@@ -18,7 +18,14 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 //utils/api
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
-import { getItems, addItem, deleteItem, updateProfile } from "../../utils/api";
+import {
+  getItems,
+  addItem,
+  deleteItem,
+  updateProfile,
+  addCardLike,
+  removeCardLike,
+} from "../../utils/api";
 import * as auth from "../../utils/auth";
 import { setToken, getToken } from "../../utils/token";
 //contexts
@@ -161,6 +168,59 @@ function App() {
       });
   };
 
+  //delete card functions
+  const openConfirmationModal = (card) => {
+    setActiveModal("delete-modal");
+    setSelectedCard(card);
+  };
+
+  const handleCardDelete = (card) => {
+    if (!token) {
+      return;
+    }
+    deleteItem({ itemId: card._id }, token)
+      .then(() => {
+        setClothingItems((prevItems) =>
+          prevItems.filter((item) => item._id !== card._id)
+        );
+      })
+      .then(() => {
+        handleModalClose();
+      })
+      .catch((err) => {
+        console.error("Failed to delete card: ", err);
+      });
+  };
+
+  //card like functionality
+  const handleCardLike = ({ _id, isLiked }) => {
+    !isLiked
+      ? addCardLike(_id, token)
+          .then((updatedCard) => {
+            console.log("Updated card from addCardLike:", updatedCard);
+            setClothingItems((cards) =>
+              cards.map((item) =>
+                String(item._id) === String(updatedCard._id)
+                  ? updatedCard
+                  : item
+              )
+            );
+          })
+          .catch((err) => console.log(err))
+      : removeCardLike(_id, token)
+          .then((updatedCard) => {
+            console.log("Updated card from removeCardLike:", updatedCard);
+            setClothingItems((cards) =>
+              cards.map((item) =>
+                String(item._id) === String(updatedCard._id)
+                  ? updatedCard
+                  : item
+              )
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   //add new user
   const handleRegistration = (newUser) => {
     auth
@@ -214,30 +274,7 @@ function App() {
     });
   }, []);
 
-  //delete card functions
-  const openConfirmationModal = (card) => {
-    setActiveModal("delete-modal");
-    setSelectedCard(card);
-  };
-
-  const handleCardDelete = (card) => {
-    if (!token) {
-      return;
-    }
-    deleteItem({ itemId: card._id }, token)
-      .then(() => {
-        setClothingItems((prevItems) =>
-          prevItems.filter((item) => item._id !== card._id)
-        );
-      })
-      .then(() => {
-        handleModalClose();
-      })
-      .catch((err) => {
-        console.error("Failed to delete card: ", err);
-      });
-  };
-
+  //update profile functionality
   const handleUpdateProfile = (data) => {
     if (!token) {
       return;
@@ -283,6 +320,7 @@ function App() {
                     weatherData={weatherData}
                     handleCardClick={handleCardClick}
                     clothingItems={clothingItems}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
@@ -295,6 +333,7 @@ function App() {
                       onAddCard={handleAddCard}
                       clothingItems={clothingItems}
                       onEditProfile={handleEditProfileModal}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }

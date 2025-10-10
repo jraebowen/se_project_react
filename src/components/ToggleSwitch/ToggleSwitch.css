@@ -56,7 +56,6 @@
 
 .weather-toggle__text {
   position: absolute;
-  z-index: 1000;
   color: rgba(126, 126, 126, 1);
 }
 
