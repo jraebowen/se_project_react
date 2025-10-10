@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./EditProfileModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
@@ -62,7 +61,6 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
     const updatedData = {
       name: data.name,
     };
-
     // Only include avatar if it's a valid URL and not empty
     if (data.avatar.trim() !== "") {
       updatedData.avatar = data.avatar;

@@ -73,7 +73,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       error.email === "" &&
       error.password === "" &&
       error.name === "" &&
-      error.avatar === ""
+      (data.avatar === "" || error.avatar === "")
     ) {
       return true;
     }
@@ -82,7 +82,11 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
   //form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegistration(data);
+    const updatedData = { ...data };
+    if (updatedData.avatar.trim() === "") {
+      delete updatedData.avatar; // don't send empty string
+    }
+    handleRegistration(updatedData);
   };
 
   return (
