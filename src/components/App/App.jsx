@@ -1,6 +1,6 @@
 //react imports
-import { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
+import { Routes, Route } from "react-router-dom";
 //css import
 import "./App.css";
 //components
@@ -94,9 +94,9 @@ function App() {
     setIsMobileMenuOpened((prev) => !prev);
   };
 
-  const handleModalClose = () => {
+  const handleModalClose = useCallback(() => {
     setActiveModal("");
-  };
+  }, []);
 
   useEffect(() => {
     const handleEscapeKey = (e) => {
