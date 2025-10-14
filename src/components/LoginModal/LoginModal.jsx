@@ -1,43 +1,23 @@
 import { useEffect, useMemo } from "react";
 import "./LoginModal.css";
-import useForm from "../../hooks/useForm";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
-  const initialValues = useMemo(
-    () => ({
-      email: "",
-      password: "",
-    }),
-    []
-  );
-
   //validation
-  const validate = (input, value) => {
-    if (!value) {
-      return "This is a required field";
-    } else if (input === "email" && (value.length < 2 || value.length > 30)) {
-      return "This is a required field";
-    } else if (
-      input === "password" &&
-      (value.length < 2 || value.length > 30)
-    ) {
-      return "This is a required field";
-    }
-    return "";
-  };
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
 
   const requiredFields = ["email", "password"];
-  const { values, errors, handleChange, resetForm, isValid } = useForm(
-    initialValues,
-    validate,
-    requiredFields
-  );
 
   //clear results when opening modal
   useEffect(() => {
     if (isOpen) resetForm();
-  }, [isOpen, resetForm]);
+    setValues({
+      email: "",
+      password: "",
+    });
+  }, [isOpen, resetForm, setValues]);
 
   //form submission
   const handleSubmit = (e) => {

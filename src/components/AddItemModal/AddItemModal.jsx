@@ -1,43 +1,23 @@
 import { useEffect, useMemo } from "react";
-import useForm from "../../hooks/useForm";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
-  const initialValues = useMemo(
-    () => ({
-      name: "",
-      imageUrl: "",
-      weather: "",
-    }),
-    []
-  );
-
   //validation
-  const validate = (input, value) => {
-    if (!value) {
-      return "This is a required field";
-    } else if (input === "name" && (value.length < 2 || value.length > 30)) {
-      return "This is a required field";
-    } else if (input === "imageUrl") {
-      const url = /^(ftp|http|https):\/\/[^ "]+$/;
-      if (!url.test(value)) {
-        return "Enter a valid image URL";
-      }
-    }
-    return "";
-  };
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
 
-  const requiredFields = ["name", "imageUrl", "weather"];
-  const { values, errors, handleChange, resetForm, isValid } = useForm(
-    initialValues,
-    validate,
-    requiredFields
-  );
-
-  //clear results when opening modal
+  //clear results when opening modal and set initial values when modal opens
   useEffect(() => {
-    if (isOpen) resetForm();
-  }, [isOpen, resetForm]);
+    if (isOpen) {
+      resetForm();
+      setValues({
+        name: "",
+        imageUrl: "",
+        weather: "",
+      });
+    }
+  }, [isOpen, resetForm, setValues]);
 
   //form submission function
   const handleFormSubmit = (e) => {

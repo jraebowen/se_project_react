@@ -1,50 +1,18 @@
 import { useEffect, useMemo } from "react";
 import "./RegisterModal.css";
-import useForm from "../../hooks/useForm";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
-  const initialValues = useMemo(
-    () => ({
-      name: "",
-      avatar: "",
-      email: "",
-      password: "",
-    }),
-    []
-  );
-
   //validation
-  const validate = (input, value) => {
-    if (input === "email" && (value.length < 2 || value.length > 30)) {
-      return "This is a required field";
-    } else if (
-      input === "password" &&
-      (value.length < 2 || value.length > 30)
-    ) {
-      return "This is a required field";
-    } else if (input === "name" && (value.length < 2 || value.length > 30)) {
-      return "Enter a valid name";
-    } else if (input === "avatar") {
-      const url = /^(ftp|http|https):\/\/[^ "]+$/;
-      if (value !== "" && !url.test(value)) {
-        return "Enter a valid image URL";
-      }
-    }
-    return "";
-  };
-
-  const requiredFields = ["name", "email", "password"];
-  const { values, errors, handleChange, resetForm, isValid } = useForm(
-    initialValues,
-    validate,
-    requiredFields
-  );
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
 
   //clear results when opening modal
   useEffect(() => {
     if (isOpen) resetForm();
-  }, [isOpen, resetForm]);
+    setValues({ name: "", avatar: "", email: "", password: "" });
+  }, [isOpen, resetForm, setValues]);
 
   //form submission
   const handleSubmit = (e) => {
@@ -136,6 +104,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           placeholder="Avatar URL"
           onChange={handleChange}
           value={values.avatar}
+          pattern="https?://.+"
         />
       </fieldset>
     </ModalWithForm>

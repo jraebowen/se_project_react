@@ -64,7 +64,9 @@
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   transition: box-shadow 0.2s ease-in-out;
-  max-width: 323px;
+  width: 323px;
+  height: 328px;
+  object-fit: cover;
 }
 
 .item-card__image:hover {

@@ -1,42 +1,24 @@
 import { useEffect, useMemo, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import useForm from "../../hooks/useForm";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
 const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
   const { currentUser } = useContext(CurrentUserContext);
-  const initialValues = useMemo(
-    () => ({
-      name: "",
-      avatar: "",
-    }),
-    []
-  );
 
   //validation
-  const validate = (input, value) => {
-    if (input === "name" && (value.length < 2 || value.length > 30)) {
-      return "This is a required field";
-    } else if (input === "avatar") {
-      const url = /^(ftp|http|https):\/\/[^ "]+$/;
-      if (value !== "" && !url.test(value)) {
-        return "Enter a valid image URL";
-      }
-    }
-    return "";
-  };
-  const requiredFields = ["name"];
-  const { values, errors, handleChange, resetForm, isValid } = useForm(
-    initialValues,
-    validate,
-    requiredFields
-  );
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
 
   //clear results when opening modal
   useEffect(() => {
     if (isOpen)
       resetForm({ name: currentUser.name, avatar: currentUser.avatar });
-  }, [isOpen, resetForm]);
+    setValues({
+      name: "",
+      avatar: "",
+    });
+  }, [isOpen, resetForm, setValues]);
 
   //form submission
   const handleSubmit = (e) => {
