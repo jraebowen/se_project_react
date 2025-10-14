@@ -9,6 +9,7 @@ function ModalWithForm({
   onSubmit,
   onValidation,
   secondaryButton,
+  onLoad,
 }) {
   return (
     <div className={`modal ${isOpen && "modal__is-opened"}`}>
@@ -25,9 +26,9 @@ function ModalWithForm({
           <button
             type="submit"
             className="form-modal__button"
-            disabled={!onValidation()}
+            disabled={!onValidation() || onLoad}
           >
-            {buttonText}
+            {onLoad ? "Saving..." : buttonText}
           </button>
           {secondaryButton}
         </form>

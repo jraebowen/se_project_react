@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react";
-import useFormAndValidation from "../../hooks/useFormAndValidation";
+import { useEffect } from "react";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
+const AddItemModal = ({ isOpen, onClose, onAddItem, onLoad }) => {
   //validation
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
@@ -31,6 +31,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
       onClose={onClose}
       onSubmit={handleFormSubmit}
       onValidation={() => isValid}
+      onLoad={onLoad}
       title="New garment"
       buttonText="Add garment"
     >
@@ -48,7 +49,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
           name="name"
           placeholder="Name"
           onChange={handleChange}
-          value={values.name}
+          value={values.name || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -65,7 +66,7 @@ const AddItemModal = ({ isOpen, onClose, onAddItem }) => {
           name="imageUrl"
           placeholder="Image URL"
           onChange={handleChange}
-          value={values.imageUrl}
+          value={values.imageUrl || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset form__fieldset_radio">

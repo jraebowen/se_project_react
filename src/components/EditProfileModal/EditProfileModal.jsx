@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import useFormAndValidation from "../../hooks/useFormAndValidation";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
+const EditProfileModal = ({ isOpen, onClose, onUpdateProfile, onLoad }) => {
   const { currentUser } = useContext(CurrentUserContext);
 
   //validation
@@ -31,6 +31,7 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      onLoad={onLoad}
       onValidation={() => isValid}
       title="Change Profile Data"
       buttonText="Save Changes"
@@ -49,7 +50,7 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
           id="name-edit-input"
           placeholder="Name"
           onChange={handleChange}
-          value={values.name}
+          value={values.name || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -66,7 +67,7 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile }) => {
           id="avatar-edit-input"
           placeholder="Avatar URL"
           onChange={handleChange}
-          value={values.avatar}
+          value={values.avatar || ""}
         />
       </fieldset>
     </ModalWithForm>

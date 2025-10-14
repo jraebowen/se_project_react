@@ -1,9 +1,9 @@
 import { useEffect, useMemo } from "react";
 import "./LoginModal.css";
-import useFormAndValidation from "../../hooks/useFormAndValidation";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
+const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin, onLoad }) => {
   //validation
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
@@ -30,6 +30,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      onLoad={onLoad}
       onValidation={() => isValid}
       title="Log In"
       buttonText="Log In"
@@ -57,7 +58,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
           id="email-login-input"
           placeholder="Email"
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -74,7 +75,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin }) => {
           id="password-login-input"
           placeholder="Password"
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ""}
         />
       </fieldset>
     </ModalWithForm>

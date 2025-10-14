@@ -1,9 +1,15 @@
 import { useEffect, useMemo } from "react";
 import "./RegisterModal.css";
-import useFormAndValidation from "../../hooks/useFormAndValidation";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
+const RegisterModal = ({
+  isOpen,
+  onClose,
+  handleRegistration,
+  onLogIn,
+  onLoad,
+}) => {
   //validation
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
@@ -26,6 +32,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
       onClose={onClose}
       onSubmit={handleSubmit}
       onValidation={() => isValid}
+      onLoad={onLoad}
       title="Sign Up"
       buttonText="Next"
       secondaryButton={
@@ -52,7 +59,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="email-register-input"
           placeholder="Email"
           onChange={handleChange}
-          value={values.email}
+          value={values.email || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -69,7 +76,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="password-register-input"
           placeholder="Password"
           onChange={handleChange}
-          value={values.password}
+          value={values.password || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -86,7 +93,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="name-register-input"
           placeholder="Name"
           onChange={handleChange}
-          value={values.name}
+          value={values.name || ""}
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -103,7 +110,7 @@ const RegisterModal = ({ isOpen, onClose, handleRegistration, onLogIn }) => {
           id="avatar-register-input"
           placeholder="Avatar URL"
           onChange={handleChange}
-          value={values.avatar}
+          value={values.avatar || ""}
           pattern="https?://.+"
         />
       </fieldset>

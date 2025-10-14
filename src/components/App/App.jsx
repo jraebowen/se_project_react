@@ -56,6 +56,8 @@ function App() {
   //card rendering states
   const [clothingItems, setClothingItems] = useState([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   //modal open/close states
   const [selectedCard, setSelectedCard] = useState({});
 
@@ -155,6 +157,7 @@ function App() {
 
   //add new cards
   const handleAddItemSubmit = (data) => {
+    setIsLoading(true);
     addItem(data, token)
       .then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
@@ -210,11 +213,12 @@ function App() {
               )
             );
           })
-          .catch((err) => console.log(err));
+          .catch(console.error);
   };
 
   //add new user
   const handleRegistration = (newUser) => {
+    setIsLoading(true);
     auth
       .signUp(newUser.name, newUser.avatar, newUser.email, newUser.password)
       .then(() => {
@@ -244,6 +248,8 @@ function App() {
     if (!email || !password) {
       return;
     }
+    setIsLoading(true);
+
     auth
       .signIn(email, password)
       .then((res) => {
@@ -361,23 +367,27 @@ function App() {
             isOpen={activeModal === "add-garment"}
             onClose={handleModalClose}
             onAddItem={handleAddItemSubmit}
+            onLoad={isLoading}
           />
           <RegisterModal
             isOpen={activeModal === "add-user"}
             onClose={handleModalClose}
             handleRegistration={handleRegistration}
             onLogIn={handleLoginModal}
+            onLoad={isLoading}
           />
           <LoginModal
             isOpen={activeModal === "login-modal"}
             onClose={handleModalClose}
             handleLogin={handleLogin}
             onSignUp={handleAddNewUserModal}
+            onLoad={isLoading}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile-modal"}
             onClose={handleModalClose}
             onUpdateProfile={handleUpdateProfile}
+            onLoad={isLoading}
           />
           <ItemModal
             activeModal={activeModal}
