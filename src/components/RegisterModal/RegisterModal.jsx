@@ -60,6 +60,7 @@ const RegisterModal = ({
           placeholder="Email"
           onChange={handleChange}
           value={values.email || ""}
+          required
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -77,6 +78,7 @@ const RegisterModal = ({
           placeholder="Password"
           onChange={handleChange}
           value={values.password || ""}
+          required
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -98,7 +100,7 @@ const RegisterModal = ({
       </fieldset>
       <fieldset className="form__fieldset">
         <label htmlFor="avatar-register-input" className="form__label">
-          Avatar{" "}
+          Avatar URL*{" "}
           {errors.avatar && (
             <span className="form__input-error">{errors.avatar}</span>
           )}

@@ -155,17 +155,22 @@ function App() {
       });
   }, []);
 
-  //add new cards
-  const handleAddItemSubmit = (data) => {
+  //submit function
+  function handleSubmit(request) {
     setIsLoading(true);
-    addItem(data, token)
-      .then((newItem) => {
+    request()
+      .then(handleModalClose)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }
+  //add new cards
+  const handleAddItem = (data) => {
+    const makeRequest = () => {
+      return addItem(data, token).then((newItem) => {
         setClothingItems((prevItems) => [newItem, ...prevItems]);
-        handleModalClose();
-      })
-      .catch((err) => {
-        console.error("Failed to add new item: ", err);
       });
+    };
+    handleSubmit(makeRequest);
   };
 
   //delete card functions
@@ -218,57 +223,53 @@ function App() {
 
   //add new user
   const handleRegistration = (newUser) => {
-    setIsLoading(true);
-    auth
-      .signUp(newUser.name, newUser.avatar, newUser.email, newUser.password)
-      .then(() => {
-        return auth.signIn(newUser.email, newUser.password);
-      })
-      .then((res) => {
-        if (res.token) {
-          setToken(res.token);
-          setTokenState(res.token);
-          return auth.getUserInfo(res.token);
-        } else {
-          throw new Error("No token returned after signup");
-        }
-      })
-      .then((userData) => {
-        setCurrentUser(userData);
-        setIsLoggedIn(true);
-        handleModalClose();
-      })
-      .catch((err) => {
-        console.error("Registration unsuccessful", err);
-      });
+    const makeRequest = () => {
+      return auth
+        .signUp(newUser.name, newUser.avatar, newUser.email, newUser.password)
+        .then(() => {
+          return auth.signIn(newUser.email, newUser.password);
+        })
+        .then((res) => {
+          if (res.token) {
+            setToken(res.token);
+            setTokenState(res.token);
+            return auth.getUserInfo(res.token);
+          } else {
+            throw new Error("No token returned after signup");
+          }
+        })
+        .then((userData) => {
+          setCurrentUser(userData);
+          setIsLoggedIn(true);
+        });
+    };
+
+    handleSubmit(makeRequest);
   };
 
   //login functionality
   const handleLogin = ({ email, password }) => {
-    if (!email || !password) {
-      return;
-    }
-    setIsLoading(true);
-
-    auth
-      .signIn(email, password)
-      .then((res) => {
-        if (res.token) {
-          setToken(res.token);
-          setTokenState(res.token);
-          return auth.getUserInfo(res.token);
-        } else {
-          throw new Error("No token returned");
-        }
-      })
-      .then((userData) => {
-        setCurrentUser(userData);
-        setIsLoggedIn(true);
-        handleModalClose();
-      })
-      .catch((err) => {
-        console.error("Failed to log in", err);
-      });
+    const makeRequest = () => {
+      if (!email || !password) {
+        return;
+      }
+      return auth
+        .signIn(email, password)
+        .then((res) => {
+          if (res.token) {
+            setToken(res.token);
+            setTokenState(res.token);
+            return auth.getUserInfo(res.token);
+          } else {
+            throw new Error("No token returned");
+          }
+        })
+        .then((userData) => {
+          setCurrentUser(userData);
+          setIsLoggedIn(true);
+        });
+    };
+    handleSubmit(makeRequest);
   };
 
   //logout functionality
@@ -285,10 +286,15 @@ function App() {
       return;
     }
     setTokenState(jwt);
-    auth.getUserInfo(jwt).then(({ email, name, avatar, _id }) => {
-      setIsLoggedIn(true);
-      setCurrentUser({ email, name, avatar, _id });
-    });
+    auth
+      .getUserInfo(jwt)
+      .then(({ email, name, avatar, _id }) => {
+        setIsLoggedIn(true);
+        setCurrentUser({ email, name, avatar, _id });
+      })
+      .catch((err) => {
+        console.error("Failed to find user: ", err);
+      });
   }, []);
 
   //update profile functionality
@@ -300,19 +306,17 @@ function App() {
       avatar: data.avatar ? data.avatar : currentUser.avatar,
     };
 
-    updateProfile(updatedData, token)
-      .then((updatedUser) => {
+    const makeRequest = () => {
+      return updateProfile(updatedData, token).then((updatedUser) => {
         setCurrentUser((prevUser) => ({
           ...prevUser,
           name: updatedUser.name,
           avatar: updatedUser.avatar,
-          email: updatedUser.email, // keep email too
+          email: updatedUser.email,
         }));
-      })
-      .then(() => handleModalClose())
-      .catch((err) => {
-        console.error("Could not update profile: ", err);
       });
+    };
+    handleSubmit(makeRequest);
   };
 
   return (
@@ -366,7 +370,7 @@ function App() {
           <AddItemModal
             isOpen={activeModal === "add-garment"}
             onClose={handleModalClose}
-            onAddItem={handleAddItemSubmit}
+            onAddItem={handleAddItem}
             onLoad={isLoading}
           />
           <RegisterModal

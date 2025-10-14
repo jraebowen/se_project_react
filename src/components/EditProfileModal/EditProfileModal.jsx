@@ -13,11 +13,10 @@ const EditProfileModal = ({ isOpen, onClose, onUpdateProfile, onLoad }) => {
   //clear results when opening modal
   useEffect(() => {
     if (isOpen)
-      resetForm({ name: currentUser.name, avatar: currentUser.avatar });
-    setValues({
-      name: "",
-      avatar: "",
-    });
+      resetForm({
+        name: currentUser.name || "",
+        avatar: currentUser.avatar || "",
+      });
   }, [isOpen, resetForm, setValues]);
 
   //form submission

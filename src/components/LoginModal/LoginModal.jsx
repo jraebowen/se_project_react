@@ -59,6 +59,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin, onLoad }) => {
           placeholder="Email"
           onChange={handleChange}
           value={values.email || ""}
+          required
         />
       </fieldset>
       <fieldset className="form__fieldset">
@@ -76,6 +77,7 @@ const LoginModal = ({ isOpen, onClose, onSignUp, handleLogin, onLoad }) => {
           placeholder="Password"
           onChange={handleChange}
           value={values.password || ""}
+          required
         />
       </fieldset>
     </ModalWithForm>
