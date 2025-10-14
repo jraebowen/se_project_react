@@ -1,4 +1,5 @@
 import "./ModalWithForm.css";
+import useModalClose from "../../hooks/modalEscAndOverlay";
 
 function ModalWithForm({
   children,
@@ -11,6 +12,7 @@ function ModalWithForm({
   secondaryButton,
   onLoad,
 }) {
+  useModalClose(isOpen, onClose);
   return (
     <div className={`modal ${isOpen && "modal__is-opened"}`}>
       <div className="form-modal__container">

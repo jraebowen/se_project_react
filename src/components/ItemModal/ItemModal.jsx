@@ -1,12 +1,20 @@
 import "./ItemModal.css";
 import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
+import useModalClose from "../../hooks/modalEscAndOverlay";
 
-function ItemModal({ activeModal, selectedCard, onClose, onDeleteClick }) {
+function ItemModal({
+  activeModal,
+  selectedCard,
+  onClose,
+  onDeleteClick,
+  isOpen,
+}) {
   const { currentUser } = useContext(CurrentUserContext);
 
   const isOwn = selectedCard.owner === currentUser._id;
 
+  useModalClose(isOpen, onClose);
   return (
     <div
       className={`item-modal ${

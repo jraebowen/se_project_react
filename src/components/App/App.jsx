@@ -100,38 +100,6 @@ function App() {
     setActiveModal("");
   }, []);
 
-  useEffect(() => {
-    const handleEscapeKey = (e) => {
-      if (e.key === "Escape") {
-        handleModalClose();
-      }
-    };
-    if (activeModal) {
-      window.addEventListener("keydown", handleEscapeKey);
-    }
-    return () => {
-      window.removeEventListener("keydown", handleEscapeKey);
-    };
-  }, [activeModal, handleModalClose]);
-
-  useEffect(() => {
-    const handleClickOutsideModal = (e) => {
-      if (
-        e.target.classList.contains("modal") ||
-        e.target.classList.contains("item-modal") ||
-        e.target.classList.contains("delete-modal")
-      ) {
-        handleModalClose();
-      }
-    };
-    if (activeModal) {
-      window.addEventListener("mousedown", handleClickOutsideModal);
-    }
-    return () => {
-      window.removeEventListener("mousedown", handleClickOutsideModal);
-    };
-  }, [activeModal, handleModalClose]);
-
   //weather api
   useEffect(() => {
     getWeather(location, apiKey)
@@ -395,6 +363,7 @@ function App() {
             onLoad={isLoading}
           />
           <ItemModal
+            isOpen={activeModal === "item-modal"}
             activeModal={activeModal}
             selectedCard={selectedCard}
             onClose={handleModalClose}
