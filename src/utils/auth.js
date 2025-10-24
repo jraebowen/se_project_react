@@ -1,4 +1,8 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.whattowear.wildsurf.net"
+    : "http://localhost:3001";
+
 import { checkResponse } from "./api";
 
 export const signUp = (name, avatar, email, password) => {
