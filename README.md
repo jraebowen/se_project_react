@@ -44,13 +44,6 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
 **Assets**
 [Link to the assets](../se_project_react/src/assets/)
 
-**Screenshots of Responsive Design**
-
-TO BE UPDATED
-
-- [Desktop Responsive Design](to be updated)
-- [Mobile Responsive Design](to be updated)
-
 **Final Project**
 
 - [Link to live project](https://jraebowen.github.io/se_project_react/)
