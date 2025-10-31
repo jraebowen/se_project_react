@@ -1,11 +1,11 @@
 .main {
   flex-grow: 1;
-  margin: 0 auto;
 }
 
 .cards__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 325px);
+  justify-content: center;
   margin: 0;
   padding: 0;
   gap: 20px;
