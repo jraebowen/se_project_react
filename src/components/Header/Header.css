@@ -111,7 +111,7 @@
   .header__container_profile-details_mobile-modal {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 343px;
     background-color: white;
     margin: 18px 16px 0 16px;
