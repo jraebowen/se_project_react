@@ -3,7 +3,11 @@
 }
 
 .cards__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 325px);
   margin: 0 auto;
+  padding: 0;
+  gap: 20px;
 }
 .cards__text {
   margin: 0 0 40px 0;
