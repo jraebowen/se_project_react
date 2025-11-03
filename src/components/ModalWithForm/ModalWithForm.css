@@ -107,7 +107,6 @@
   line-height: 1;
   padding-left: 8px;
   margin: 0;
-  width: 100%;
   border: none;
   border-bottom: 1px solid black;
 }
@@ -164,9 +163,7 @@
     max-width: 319px;
     height: 391px;
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px;
   }
 
   .form-modal__close-button {
@@ -181,6 +178,6 @@
     font-size: 20px;
   }
   .form-modal__button {
-    width: 343px;
+    width: 319px;
   }
 }
