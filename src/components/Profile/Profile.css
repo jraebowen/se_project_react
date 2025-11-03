@@ -37,6 +37,7 @@
   .profile {
     flex-direction: column;
     margin-top: 4px;
+    justify-content: flex-start;
   }
 
   .profile__sidebar {
