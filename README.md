@@ -46,5 +46,5 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
 
 **Final Project**
 
-- [Link to live project](https://jraebowen.github.io/se_project_react/)
-- Recorded overview of project: (To Be Updated)
+- Live site: (https://whattowear.wildsurf.net/)
+- Recorded overview of project: (https://www.loom.com/share/d7a06386872d4ec79b5f4620c2ebec90)
