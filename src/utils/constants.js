@@ -1,4 +1,4 @@
-export const apiKey = "f8d4b776ded1194b53f5466118051765";
+export const apiKey = process.env.REACT_APP_API_KEY;
 export const location = {
   longitude: -118.2426,
   latitude: 34.0549,
