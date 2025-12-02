@@ -1,6 +1,6 @@
 //react imports
 import { useState, useEffect, useCallback } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 //css import
 import "./App.css";
 //components
