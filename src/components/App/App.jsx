@@ -333,6 +333,16 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="*"
+                element={
+                  isLoggedIn ? (
+                    <Navigate to="/profile" replace />
+                  ) : (
+                    <Navigate to="/" replace />
+                  )
+                }
+              />
             </Routes>
             <Footer />
           </div>
