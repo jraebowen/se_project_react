@@ -1,4 +1,4 @@
-export const apiKey = process.env.REACT_APP_API_KEY;
+export const apiKey = import.meta.env.VITE_API_KEY;
 export const location = {
   longitude: -118.2426,
   latitude: 34.0549,
